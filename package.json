@@ -1,0 +1,30 @@
+{
+	"name": "teamup_back-end",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node index.js",
+		"dev": "nodemon index.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/leofleury72-bot/TeamUp_back-end.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/leofleury72-bot/TeamUp_back-end/issues"
+	},
+	"homepage": "https://github.com/leofleury72-bot/TeamUp_back-end#readme",
+	"dependencies": {
+		"express": "^5.2.1"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.6",
+		"nodemon": "^3.1.14",
+		"tsx": "^4.21.0"
+	}
+}
