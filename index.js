@@ -3,6 +3,32 @@ const cors = require("cors");
 const port = 3310;
 const app = express();
 
+const sports = [
+  "Archery",
+  "Badminton",
+  "Basketball",
+  "Boxing",
+  "Climbing",
+  "Cycling",
+  "Dance",
+  "Football",
+  "Gym",
+  "Handball",
+  "Judo",
+  "Karate",
+  "Kayaking",
+  "Paddleboarding",
+  "Pilates",
+  "Rugby",
+  "Running",
+  "Skating",
+  "Surfing",
+  "Swimming",
+  "Tennis",
+  "Volleyball",
+  "Yoga"
+];
+
 const events = [
 	{
 		id: 1,
@@ -478,6 +504,7 @@ const users = [
 	},
 ];
 
+
 app.use(cors("*"));
 app.get("/", (req, res) => {});
 
@@ -487,6 +514,10 @@ app.get("/users", (req, res) => {
 
 app.get("/events", (req, res) => {
 	res.json(events);
+});
+
+app.get("/sports", (req, res) => {
+	res.json(sports);
 });
 
 app.listen(port, () => {
