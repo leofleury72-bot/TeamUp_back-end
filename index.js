@@ -1,4 +1,5 @@
 const express = require("express");
+const mysql = require("mysql")
 const cors = require("cors");
 const port = 3310;
 const app = express();
@@ -504,6 +505,25 @@ const users = [
 	},
 ];
 
+/* -------------------- TEST BDD --------------------- */
+
+const connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: '',
+	database: 'teamuptest'
+})
+
+connection.connect((err) => {
+	if(err) {
+		console.error("Erreur de connection : "+ err.stack)
+		return;
+	}
+	console.log("Connexion reussie a la bdd !")
+});
+
+/* --------------------------------------------------- */
+
 
 app.use(cors("*"));
 app.get("/", (req, res) => {});
@@ -511,6 +531,159 @@ app.get("/", (req, res) => {});
 app.get("/users", (req, res) => {
 	res.json(users);
 });
+
+
+/* -------------------- TEST BDD --------------------- */
+
+app.get("/bdd/users", (req, res) => {
+  connection.query(`
+    SELECT u.*, us.sport, us.level, us.frequency FROM users u JOIN users_sport us ON u.id = us.id_user;
+  `, (err, rows) => {
+    if (err) throw err;
+
+    const usersMap = {};
+
+    rows.forEach(row => {
+      if (!usersMap[row.id]) {
+        usersMap[row.id] = {
+          id: row.id,
+          username: row.username,
+          name: row.name,
+          age: row.age,
+          sports: [],
+		  bio: row.bio, 
+		  url_image: row.url_image,
+		  location: row.location
+        };
+      }
+
+      if (row.sport) {
+        usersMap[row.id].sports.push({
+          name: row.sport,
+          niveau: row.level,
+          duration: row.frequency
+        });
+      }
+    });
+
+    res.json(Object.values(usersMap));
+  });
+});
+
+/* My version
+app.get("/bdd/events", (req, res) => {
+	connection.query(`SELECT * FROM events`, (err, rows) => {
+		if (err) throw err;
+
+		const eventsMap = {};
+
+		rows.forEach(row => {
+			if(!eventsMap[row.id]) {
+
+				// get username from users for the host
+				connection.query(
+					`SELECT u.username FROM users u WHERE id = ?`,
+					 [row.host_id], 
+					 (err, hostResult) =>{ 
+					if (err) throw err;
+
+					const hostName = hostResult[0]?.username;
+					
+					// get username of people joining
+					
+					connection.query(
+						`SELECT u.username FROM users u JOIN events_joining_people eu ON u.id = eu.id_user_joining WHERE eu.id_event = ?`,
+						 [row.id], 
+						 (err, joinResult) => {
+						if (err) throw err;
+
+						let joinPeople = [];
+						joinResult.forEach(res => 
+							joinPeople.push(res.username));
+							
+						eventsMap[row.id] = {
+							id: row.id,
+							name: row.name,
+							host: hostName,
+							location: row.location,
+							description: row.description,
+							date: row.date, 
+							time: row.hours, 
+							max_people: row.max_people,
+							people_joining: joinPeople,
+							sport: {
+								name: row.sport,
+								level: row.sport_level,
+							},
+							is_done: row.is_done==1 ? true : false,
+						};
+
+						if (Object.keys(eventsMap).length === rows.length) {
+                			res.json(Object.values(eventsMap));
+						}
+					})
+				})
+			}
+		})
+	})
+})
+*/ 
+
+// AI version
+app.get("/bdd/events", (req, res) => {
+	connection.query(`SELECT 
+	e.id,
+	e.name,
+	e.location,
+	e.description,
+	e.date,
+	e.hours,
+	e.max_people,
+	e.sport,
+	e.sport_level,
+	e.is_done,
+
+	host.username AS host_username,
+
+	GROUP_CONCAT(joiner.username) AS people_joining
+
+	FROM events e
+
+	JOIN users host 
+	ON host.id = e.host_id
+
+	LEFT JOIN events_joining_people ej 
+	ON ej.id_event = e.id
+
+	LEFT JOIN users joiner 
+	ON joiner.id = ej.id_user_joining
+
+	GROUP BY e.id`, (err, rows) => {
+	if (err) throw err;
+
+	const events = rows.map(row => ({
+		id: row.id,
+		name: row.name,
+		host: row.host_username,
+		location: row.location,
+		description: row.description,
+		date: row.date,
+		time: row.hours,
+		max_people: row.max_people,
+		people_joining: row.people_joining
+		? row.people_joining.split(",")
+		: [],
+		sport: {
+		name: row.sport,
+		level: row.sport_level,
+		},
+		is_done: row.is_done == 1
+	}));
+
+	res.json(events);
+	});
+})
+/* --------------------------------------------------- */
 
 app.get("/events", (req, res) => {
 	res.json(events);
