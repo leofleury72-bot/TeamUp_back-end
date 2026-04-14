@@ -304,7 +304,7 @@ const users = [
 			{ name: "Football", niveau: "intermediate", duration: 3 },
 			{ name: "Running", niveau: "beginner", duration: 2 },
 		],
-		url_image: "https://example.com/user1.jpg",
+		url_image: "https://randomuser.me/api/portraits/women/1.jpg",
 		location: "Paris",
 	},
 	{
@@ -317,7 +317,7 @@ const users = [
 			{ name: "Running", niveau: "beginner", duration: 4 },
 			{ name: "Gym", niveau: "intermediate", duration: 3 },
 		],
-		url_image: "https://example.com/user2.jpg",
+		url_image: "https://randomuser.me/api/portraits/men/2.jpg",
 		location: "Lyon",
 	},
 	{
@@ -326,7 +326,7 @@ const users = [
 		name: "Charlie",
 		age: 22,
 		sport: [{ name: "Running", niveau: "beginner", duration: 4 }],
-		url_image: "https://example.com/user3.jpg",
+		url_image: "https://randomuser.me/api/portraits/men/3.jpg",
 		location: "Marseille",
 	},
 	{
@@ -338,7 +338,7 @@ const users = [
 			{ name: "Tennis", niveau: "intermediate", duration: 2 },
 			{ name: "Swimming", niveau: "beginner", duration: 2 },
 		],
-		url_image: "https://example.com/user4.jpg",
+		url_image: "https://randomuser.me/api/portraits/men/4.jpg",
 		location: "Bordeaux",
 	},
 	{
@@ -347,7 +347,7 @@ const users = [
 		name: "Emma",
 		age: 24,
 		sport: [{ name: "Yoga", niveau: "beginner", duration: 6 }],
-		url_image: "https://example.com/user5.jpg",
+		url_image: "https://randomuser.me/api/portraits/women/5.jpg",
 		location: "Nice",
 	},
 	{
@@ -359,7 +359,7 @@ const users = [
 			{ name: "Cycling", niveau: "advanced", duration: 5 },
 			{ name: "Running", niveau: "intermediate", duration: 3 },
 		],
-		url_image: "https://example.com/user6.jpg",
+		url_image: "https://randomuser.me/api/portraits/men/6.jpg",
 		location: "Lille",
 	},
 	{
@@ -371,7 +371,7 @@ const users = [
 			{ name: "Swimming", niveau: "intermediate", duration: 3 },
 			{ name: "Yoga", niveau: "beginner", duration: 2 },
 		],
-		url_image: "https://example.com/user7.jpg",
+		url_image: "https://randomuser.me/api/portraits/women/7.jpg",
 		location: "Toulouse",
 	},
 	{
@@ -380,7 +380,7 @@ const users = [
 		name: "Nathan",
 		age: 29,
 		sport: [{ name: "Boxing", niveau: "advanced", duration: 4 }],
-		url_image: "https://example.com/user8.jpg",
+		url_image: "https://randomuser.me/api/portraits/men/8.jpg",
 		location: "Nantes",
 	},
 	{
@@ -392,7 +392,7 @@ const users = [
 			{ name: "Dance", niveau: "intermediate", duration: 5 },
 			{ name: "Pilates", niveau: "beginner", duration: 3 },
 		],
-		url_image: "https://example.com/user9.jpg",
+		url_image: "https://randomuser.me/api/portraits/women/9.jpg",
 		location: "Strasbourg",
 	},
 	{
@@ -404,7 +404,7 @@ const users = [
 			{ name: "Gym", niveau: "advanced", duration: 6 },
 			{ name: "Climbing", niveau: "intermediate", duration: 2 },
 		],
-		url_image: "https://example.com/user10.jpg",
+		url_image: "https://randomuser.me/api/portraits/men/10.jpg",
 		location: "Rennes",
 	},
 	{
@@ -413,7 +413,7 @@ const users = [
 		name: "Lina",
 		age: 26,
 		sport: [{ name: "Pilates", niveau: "beginner", duration: 3 }],
-		url_image: "https://example.com/user11.jpg",
+		url_image: "https://randomuser.me/api/portraits/women/11.jpg",
 		location: "Montpellier",
 	},
 	{
@@ -425,7 +425,7 @@ const users = [
 			{ name: "Climbing", niveau: "intermediate", duration: 2 },
 			{ name: "Gym", niveau: "beginner", duration: 3 },
 		],
-		url_image: "https://example.com/user12.jpg",
+		url_image: "https://randomuser.me/api/portraits/men/12.jpg",
 		location: "Grenoble",
 	},
 	{
@@ -434,7 +434,7 @@ const users = [
 		name: "Sarah",
 		age: 24,
 		sport: [{ name: "Running", niveau: "advanced", duration: 5 }],
-		url_image: "https://example.com/user13.jpg",
+		url_image: "https://randomuser.me/api/portraits/women/13.jpg",
 		location: "Dijon",
 	},
 	{
@@ -446,7 +446,7 @@ const users = [
 			{ name: "Football", niveau: "beginner", duration: 2 },
 			{ name: "Basketball", niveau: "beginner", duration: 2 },
 		],
-		url_image: "https://example.com/user14.jpg",
+		url_image: "https://randomuser.me/api/portraits/men/14.jpg",
 		location: "Reims",
 	},
 	{
@@ -458,7 +458,7 @@ const users = [
 			{ name: "Yoga", niveau: "intermediate", duration: 4 },
 			{ name: "Dance", niveau: "beginner", duration: 3 },
 		],
-		url_image: "https://example.com/user15.jpg",
+		url_image: "https://randomuser.me/api/portraits/women/15.jpg",
 		location: "Angers",
 	},
 ];
