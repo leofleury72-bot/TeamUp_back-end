@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const port = 3310;
 const app = express();
 const events = [
@@ -428,6 +429,7 @@ const users = [
 		location: "Villeurbanne, France",
 	},
 ];
+app.use(cors("*"));
 app.get("/", (req, res) => {});
 app.get("/users", (req, res) => {
 	res.json(users);
