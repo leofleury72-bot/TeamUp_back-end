@@ -20,6 +20,7 @@
 	},
 	"homepage": "https://github.com/leofleury72-bot/TeamUp_back-end#readme",
 	"dependencies": {
+		"cors": "^2.8.6",
 		"express": "^5.2.1"
 	},
 	"devDependencies": {

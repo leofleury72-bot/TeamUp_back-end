@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const port = 3310;
 const app = express();
 
@@ -294,184 +295,174 @@ const events = [
 ];
 
 const users = [
-  {
-    "id": 1,
-    "username": "alice_fit",
-    "name": "Alice",
-    "age": 25,
-    "sport": [
-      { "name": "Football", "niveau": "intermediate", "duration": 3 },
-      { "name": "Running", "niveau": "beginner", "duration": 2 }
-    ],
-    "url_image": "https://example.com/user1.jpg",
-    "location": "Paris"
-  },
-  {
-    "id": 2,
-    "username": "bob_pro",
-    "name": "Bob",
-    "age": 30,
-    "sport": [
-      { "name": "Basketball", "niveau": "advanced", "duration": 5 },
-      { "name": "Running", "niveau": "beginner", "duration": 4 },
-      { "name": "Gym", "niveau": "intermediate", "duration": 3 }
-    ],
-    "url_image": "https://example.com/user2.jpg",
-    "location": "Lyon"
-  },
-  {
-    "id": 3,
-    "username": "charlie_run",
-    "name": "Charlie",
-    "age": 22,
-    "sport": [
-      { "name": "Running", "niveau": "beginner", "duration": 4 }
-    ],
-    "url_image": "https://example.com/user3.jpg",
-    "location": "Marseille"
-  },
-  {
-    "id": 4,
-    "username": "david_tennis",
-    "name": "David",
-    "age": 28,
-    "sport": [
-      { "name": "Tennis", "niveau": "intermediate", "duration": 2 },
-      { "name": "Swimming", "niveau": "beginner", "duration": 2 }
-    ],
-    "url_image": "https://example.com/user4.jpg",
-    "location": "Bordeaux"
-  },
-  {
-    "id": 5,
-    "username": "emma_zen",
-    "name": "Emma",
-    "age": 24,
-    "sport": [
-      { "name": "Yoga", "niveau": "beginner", "duration": 6 }
-    ],
-    "url_image": "https://example.com/user5.jpg",
-    "location": "Nice"
-  },
-  {
-    "id": 6,
-    "username": "lucas_cycle",
-    "name": "Lucas",
-    "age": 27,
-    "sport": [
-      { "name": "Cycling", "niveau": "advanced", "duration": 5 },
-      { "name": "Running", "niveau": "intermediate", "duration": 3 }
-    ],
-    "url_image": "https://example.com/user6.jpg",
-    "location": "Lille"
-  },
-  {
-    "id": 7,
-    "username": "sofia_swim",
-    "name": "Sofia",
-    "age": 21,
-    "sport": [
-      { "name": "Swimming", "niveau": "intermediate", "duration": 3 },
-      { "name": "Yoga", "niveau": "beginner", "duration": 2 }
-    ],
-    "url_image": "https://example.com/user7.jpg",
-    "location": "Toulouse"
-  },
-  {
-    "id": 8,
-    "username": "nathan_box",
-    "name": "Nathan",
-    "age": 29,
-    "sport": [
-      { "name": "Boxing", "niveau": "advanced", "duration": 4 }
-    ],
-    "url_image": "https://example.com/user8.jpg",
-    "location": "Nantes"
-  },
-  {
-    "id": 9,
-    "username": "chloe_dance",
-    "name": "Chloe",
-    "age": 23,
-    "sport": [
-      { "name": "Dance", "niveau": "intermediate", "duration": 5 },
-      { "name": "Pilates", "niveau": "beginner", "duration": 3 }
-    ],
-    "url_image": "https://example.com/user9.jpg",
-    "location": "Strasbourg"
-  },
-  {
-    "id": 10,
-    "username": "hugo_fit",
-    "name": "Hugo",
-    "age": 31,
-    "sport": [
-      { "name": "Gym", "niveau": "advanced", "duration": 6 },
-      { "name": "Climbing", "niveau": "intermediate", "duration": 2 }
-    ],
-    "url_image": "https://example.com/user10.jpg",
-    "location": "Rennes"
-  },
-  {
-    "id": 11,
-    "username": "lina_pilates",
-    "name": "Lina",
-    "age": 26,
-    "sport": [
-      { "name": "Pilates", "niveau": "beginner", "duration": 3 }
-    ],
-    "url_image": "https://example.com/user11.jpg",
-    "location": "Montpellier"
-  },
-  {
-    "id": 12,
-    "username": "tom_climb",
-    "name": "Tom",
-    "age": 28,
-    "sport": [
-      { "name": "Climbing", "niveau": "intermediate", "duration": 2 },
-      { "name": "Gym", "niveau": "beginner", "duration": 3 }
-    ],
-    "url_image": "https://example.com/user12.jpg",
-    "location": "Grenoble"
-  },
-  {
-    "id": 13,
-    "username": "sarah_run",
-    "name": "Sarah",
-    "age": 24,
-    "sport": [
-      { "name": "Running", "niveau": "advanced", "duration": 5 }
-    ],
-    "url_image": "https://example.com/user13.jpg",
-    "location": "Dijon"
-  },
-  {
-    "id": 14,
-    "username": "leo_foot",
-    "name": "Leo",
-    "age": 27,
-    "sport": [
-      { "name": "Football", "niveau": "beginner", "duration": 2 },
-      { "name": "Basketball", "niveau": "beginner", "duration": 2 }
-    ],
-    "url_image": "https://example.com/user14.jpg",
-    "location": "Reims"
-  },
-  {
-    "id": 15,
-    "username": "maya_flow",
-    "name": "Maya",
-    "age": 22,
-    "sport": [
-      { "name": "Yoga", "niveau": "intermediate", "duration": 4 },
-      { "name": "Dance", "niveau": "beginner", "duration": 3 }
-    ],
-    "url_image": "https://example.com/user15.jpg",
-    "location": "Angers"
-  }
+	{
+		id: 1,
+		username: "alice_fit",
+		name: "Alice",
+		age: 25,
+		sport: [
+			{ name: "Football", niveau: "intermediate", duration: 3 },
+			{ name: "Running", niveau: "beginner", duration: 2 },
+		],
+		url_image: "https://example.com/user1.jpg",
+		location: "Paris",
+	},
+	{
+		id: 2,
+		username: "bob_pro",
+		name: "Bob",
+		age: 30,
+		sport: [
+			{ name: "Basketball", niveau: "advanced", duration: 5 },
+			{ name: "Running", niveau: "beginner", duration: 4 },
+			{ name: "Gym", niveau: "intermediate", duration: 3 },
+		],
+		url_image: "https://example.com/user2.jpg",
+		location: "Lyon",
+	},
+	{
+		id: 3,
+		username: "charlie_run",
+		name: "Charlie",
+		age: 22,
+		sport: [{ name: "Running", niveau: "beginner", duration: 4 }],
+		url_image: "https://example.com/user3.jpg",
+		location: "Marseille",
+	},
+	{
+		id: 4,
+		username: "david_tennis",
+		name: "David",
+		age: 28,
+		sport: [
+			{ name: "Tennis", niveau: "intermediate", duration: 2 },
+			{ name: "Swimming", niveau: "beginner", duration: 2 },
+		],
+		url_image: "https://example.com/user4.jpg",
+		location: "Bordeaux",
+	},
+	{
+		id: 5,
+		username: "emma_zen",
+		name: "Emma",
+		age: 24,
+		sport: [{ name: "Yoga", niveau: "beginner", duration: 6 }],
+		url_image: "https://example.com/user5.jpg",
+		location: "Nice",
+	},
+	{
+		id: 6,
+		username: "lucas_cycle",
+		name: "Lucas",
+		age: 27,
+		sport: [
+			{ name: "Cycling", niveau: "advanced", duration: 5 },
+			{ name: "Running", niveau: "intermediate", duration: 3 },
+		],
+		url_image: "https://example.com/user6.jpg",
+		location: "Lille",
+	},
+	{
+		id: 7,
+		username: "sofia_swim",
+		name: "Sofia",
+		age: 21,
+		sport: [
+			{ name: "Swimming", niveau: "intermediate", duration: 3 },
+			{ name: "Yoga", niveau: "beginner", duration: 2 },
+		],
+		url_image: "https://example.com/user7.jpg",
+		location: "Toulouse",
+	},
+	{
+		id: 8,
+		username: "nathan_box",
+		name: "Nathan",
+		age: 29,
+		sport: [{ name: "Boxing", niveau: "advanced", duration: 4 }],
+		url_image: "https://example.com/user8.jpg",
+		location: "Nantes",
+	},
+	{
+		id: 9,
+		username: "chloe_dance",
+		name: "Chloe",
+		age: 23,
+		sport: [
+			{ name: "Dance", niveau: "intermediate", duration: 5 },
+			{ name: "Pilates", niveau: "beginner", duration: 3 },
+		],
+		url_image: "https://example.com/user9.jpg",
+		location: "Strasbourg",
+	},
+	{
+		id: 10,
+		username: "hugo_fit",
+		name: "Hugo",
+		age: 31,
+		sport: [
+			{ name: "Gym", niveau: "advanced", duration: 6 },
+			{ name: "Climbing", niveau: "intermediate", duration: 2 },
+		],
+		url_image: "https://example.com/user10.jpg",
+		location: "Rennes",
+	},
+	{
+		id: 11,
+		username: "lina_pilates",
+		name: "Lina",
+		age: 26,
+		sport: [{ name: "Pilates", niveau: "beginner", duration: 3 }],
+		url_image: "https://example.com/user11.jpg",
+		location: "Montpellier",
+	},
+	{
+		id: 12,
+		username: "tom_climb",
+		name: "Tom",
+		age: 28,
+		sport: [
+			{ name: "Climbing", niveau: "intermediate", duration: 2 },
+			{ name: "Gym", niveau: "beginner", duration: 3 },
+		],
+		url_image: "https://example.com/user12.jpg",
+		location: "Grenoble",
+	},
+	{
+		id: 13,
+		username: "sarah_run",
+		name: "Sarah",
+		age: 24,
+		sport: [{ name: "Running", niveau: "advanced", duration: 5 }],
+		url_image: "https://example.com/user13.jpg",
+		location: "Dijon",
+	},
+	{
+		id: 14,
+		username: "leo_foot",
+		name: "Leo",
+		age: 27,
+		sport: [
+			{ name: "Football", niveau: "beginner", duration: 2 },
+			{ name: "Basketball", niveau: "beginner", duration: 2 },
+		],
+		url_image: "https://example.com/user14.jpg",
+		location: "Reims",
+	},
+	{
+		id: 15,
+		username: "maya_flow",
+		name: "Maya",
+		age: 22,
+		sport: [
+			{ name: "Yoga", niveau: "intermediate", duration: 4 },
+			{ name: "Dance", niveau: "beginner", duration: 3 },
+		],
+		url_image: "https://example.com/user15.jpg",
+		location: "Angers",
+	},
 ];
-
+app.use(cors("*"));
 app.get("/", (req, res) => {});
 
 app.get("/users", (req, res) => {
