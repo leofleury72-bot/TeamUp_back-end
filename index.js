@@ -494,7 +494,7 @@ const connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
 	password: '',
-	database: 'temuptestdeux' //database: 'teamuptest'
+	database: 'teamup' //database: 'teamuptest' ou 'temuptestdeux'
 })
 
 connection.connect((err) => {
