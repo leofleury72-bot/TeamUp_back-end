@@ -658,7 +658,7 @@ app.get("/bdd/events", (req, res) => {
 */
 
 /* ------------ TEST BDD 2 ----------- */
-
+/*
 app.get("/bdd/users", (req, res) => {
 	connection.query( 
 		`SELECT 
@@ -704,10 +704,92 @@ app.get("/bdd/users", (req, res) => {
 					name: row.sport_name,
 					level: row.level_name,
 					level_comp: row.us_level_comp,
-					frenquecy: row.us_frequency,
+					frequecy: row.us_frequency,
 					match_played: row.us_match_played,
 					match_won: row.us_match_won,
-					winstreal: row.us_winstreak,
+					winstreak: row.us_winstreak,
+					mvp_count: row.us_mvp_count
+				})
+			});
+
+		res.json(Object.values(usersMap))
+	});
+});*/
+
+// ------------------------- Trying something part 1 -------------------------------
+app.get("/bdd/users", (req, res) => {
+	let request = `SELECT 
+			users.*, 
+			users_sports.us_level_comp,
+			users_sports.us_frequency, 
+			users_sports.us_match_played,
+			users_sports.us_match_won,
+			users_sports.us_winstreak,
+			users_sports.us_mvp_count,
+			sports.sport_name, 
+			levels.level_name 
+		FROM users 
+		JOIN users_sports ON users_sports.us_user_id = users.user_id 
+		JOIN sports ON users_sports.us_sport_id = sports.sport_id 
+		JOIN levels ON users_sports.us_level_id = levels.level_id`
+
+	console.log("req.query:", req.query);
+	console.log("keys:", Object.keys(req.query));
+	console.log("length:", Object.keys(req.query).length);
+
+	let filter = [];
+
+	if (!req.query || Object.keys(req.query).length > 0) {
+    	console.log("GET Request Called with filters for /bdd/users");
+		
+		if(req.query.username !== undefined){
+			request += ` WHERE users.user_username = ? `;
+			filter.push(req.query.username);
+		}
+		else if(req.query.id !== undefined){
+			request += ` WHERE users.user_id = ? `;
+			filter.push(req.query.id);
+		}
+		
+	} else {
+		console.log("GET Request Called without filters, just show all users base");
+	}
+
+	console.log(filter)
+
+	connection.query(request, filter, (err, rows) => {
+			if (err) throw err
+
+			const usersMap = [];
+
+			rows.forEach(row => {
+				if (!usersMap[row.user_id]) {
+					usersMap[row.user_id]={
+						id: row.user_id,
+						username: row.user_username,
+						name: row.user_name,
+						age: row.user_age,
+						location: row.user_location,
+						bio: row.user_bio,
+						url_image: row.user_url_image,
+						sports: [],
+						stats: {
+							match_played: row.user_match_played,
+							match_won: row.user_match_won,
+							winstreak: row.user_winstreak,
+							mvp_count: row.user_mvp_count,
+						}
+					};
+				}
+
+				usersMap[row.user_id].sports.push({
+					name: row.sport_name,
+					level: row.level_name,
+					level_comp: row.us_level_comp,
+					frequecy: row.us_frequency,
+					match_played: row.us_match_played,
+					match_won: row.us_match_won,
+					winstreak: row.us_winstreak,
 					mvp_count: row.us_mvp_count
 				})
 			});
@@ -776,8 +858,88 @@ app.get("/bdd/events", (req, res) => {
 		});
 });
 
-app.use(express.json());
+app.get("/bdd/sports", (req, res) => {
+	connection.query(`SELECT * FROM sports`, (err, rows) => {
+		if (err) throw err
 
+		res.json(Object.values(rows))
+	})
+})
+
+app.get("/bdd/levels", (req, res) => {
+	connection.query(`SELECT * FROM levels`, (err, rows) => {
+		if (err) throw err
+
+		res.json(Object.values(rows))
+	})
+})
+
+/* Not needed anymore
+app.get("/bdd/showuser", (req, res) => {
+	console.log("GET Request Called for /bdd/showuser endpoint")
+
+	const username = req.query.username;
+	console.log("username = " + username);
+	const request = `
+		SELECT 
+			users.*, 
+			users_sports.us_level_comp,
+			users_sports.us_frequency, 
+			users_sports.us_match_played,
+			users_sports.us_match_won,
+			users_sports.us_winstreak,
+			users_sports.us_mvp_count,
+			sports.sport_name, 
+			levels.level_name 
+		FROM users 
+		JOIN users_sports ON users_sports.us_user_id = users.user_id 
+		JOIN sports ON users_sports.us_sport_id = sports.sport_id 
+		JOIN levels ON users_sports.us_level_id = levels.level_id
+		WHERE users.user_username = ? `
+
+		connection.query(request, [username],  (err, rows) => {
+			if(err) throw err
+
+			const userMap = {};
+
+			rows.forEach((row) => {
+				if(!userMap[row.user_id]) {
+					userMap[row.user_id] = {
+					id: row.user_id,
+					username: row.user_username,
+					name: row.user_name,
+					age: row.user_age,
+					location: row.user_location,
+					bio: row.user_bio,
+					url_image: row.user_url_image,
+					sports: [],
+					stats: {
+							match_played: row.user_match_played,
+							match_won: row.user_match_won,
+							winstreak: row.user_winstreak,
+							mvp_count: row.user_mvp_count,
+						}
+				}
+			}
+
+			userMap[row.user_id].sports.push({
+					name: row.sport_name,
+					level: row.level_name,
+					level_comp: row.us_level_comp,
+					frequecy: row.us_frequency,
+					match_played: row.us_match_played,
+					match_won: row.us_match_won,
+					winstreak: row.us_winstreak,
+					mvp_count: row.us_mvp_count
+				})
+			})
+
+			res.json(Object.values(userMap))
+		})
+})*/
+
+
+app.use(express.json());
 /*
 app.post("/bdd/addsport", (req, res) => {
 	console.log("POST Request Called for /bdd/2/addevent endpoint")
