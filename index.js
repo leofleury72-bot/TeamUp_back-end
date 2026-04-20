@@ -3,6 +3,32 @@ const cors = require("cors");
 const port = 3310;
 const app = express();
 
+const sports = [
+  "Archery",
+  "Badminton",
+  "Basketball",
+  "Boxing",
+  "Climbing",
+  "Cycling",
+  "Dance",
+  "Football",
+  "Gym",
+  "Handball",
+  "Judo",
+  "Karate",
+  "Kayaking",
+  "Paddleboarding",
+  "Pilates",
+  "Rugby",
+  "Running",
+  "Skating",
+  "Surfing",
+  "Swimming",
+  "Tennis",
+  "Volleyball",
+  "Yoga"
+];
+
 const events = [
 	{
 		id: 1,
@@ -334,6 +360,7 @@ const users = [
 			{ name: "Football", niveau: "intermediate", duration: 3 },
 			{ name: "Running", niveau: "beginner", duration: 2 },
 		],
+		bio: "Passionnée de sport collectif et de running, toujours prête pour un nouveau défi.",
 		url_image: "https://randomuser.me/api/portraits/women/1.jpg",
 		location: "Paris",
 	},
@@ -347,6 +374,7 @@ const users = [
 			{ name: "Running", niveau: "beginner", duration: 4 },
 			{ name: "Gym", niveau: "intermediate", duration: 3 },
 		],
+		bio: "Athlète confirmé, j’adore me dépasser entre salle de sport et terrain.",
 		url_image: "https://randomuser.me/api/portraits/men/2.jpg",
 		location: "Lyon",
 	},
@@ -356,6 +384,7 @@ const users = [
 		name: "Charlie",
 		age: 22,
 		sport: [{ name: "Running", niveau: "beginner", duration: 4 }],
+		bio: "Débutant en course à pied, objectif : courir un semi-marathon.",
 		url_image: "https://randomuser.me/api/portraits/men/3.jpg",
 		location: "Marseille",
 	},
@@ -368,6 +397,7 @@ const users = [
 			{ name: "Tennis", niveau: "intermediate", duration: 2 },
 			{ name: "Swimming", niveau: "beginner", duration: 2 },
 		],
+		bio: "Fan de tennis et amateur de natation pour garder la forme.",
 		url_image: "https://randomuser.me/api/portraits/men/4.jpg",
 		location: "Bordeaux",
 	},
@@ -377,6 +407,7 @@ const users = [
 		name: "Emma",
 		age: 24,
 		sport: [{ name: "Yoga", niveau: "beginner", duration: 6 }],
+		bio: "Yoga lover 🧘‍♀️ à la recherche d’équilibre et de sérénité au quotidien.",
 		url_image: "https://randomuser.me/api/portraits/women/5.jpg",
 		location: "Nice",
 	},
@@ -389,6 +420,7 @@ const users = [
 			{ name: "Cycling", niveau: "advanced", duration: 5 },
 			{ name: "Running", niveau: "intermediate", duration: 3 },
 		],
+		bio: "Cycliste passionné, toujours partant pour une sortie longue distance.",
 		url_image: "https://randomuser.me/api/portraits/men/6.jpg",
 		location: "Lille",
 	},
@@ -401,6 +433,7 @@ const users = [
 			{ name: "Swimming", niveau: "intermediate", duration: 3 },
 			{ name: "Yoga", niveau: "beginner", duration: 2 },
 		],
+		bio: "Entre piscine et yoga, je cherche l’équilibre parfait.",
 		url_image: "https://randomuser.me/api/portraits/women/7.jpg",
 		location: "Toulouse",
 	},
@@ -410,6 +443,7 @@ const users = [
 		name: "Nathan",
 		age: 29,
 		sport: [{ name: "Boxing", niveau: "advanced", duration: 4 }],
+		bio: "Boxeur passionné, discipline et détermination sont mes moteurs.",
 		url_image: "https://randomuser.me/api/portraits/men/8.jpg",
 		location: "Nantes",
 	},
@@ -422,6 +456,7 @@ const users = [
 			{ name: "Dance", niveau: "intermediate", duration: 5 },
 			{ name: "Pilates", niveau: "beginner", duration: 3 },
 		],
+		bio: "Danseuse dans l’âme, j’aime m’exprimer à travers le mouvement.",
 		url_image: "https://randomuser.me/api/portraits/women/9.jpg",
 		location: "Strasbourg",
 	},
@@ -434,6 +469,7 @@ const users = [
 			{ name: "Gym", niveau: "advanced", duration: 6 },
 			{ name: "Climbing", niveau: "intermediate", duration: 2 },
 		],
+		bio: "Accro à la salle et à l’escalade, toujours en quête de performance.",
 		url_image: "https://randomuser.me/api/portraits/men/10.jpg",
 		location: "Rennes",
 	},
@@ -443,6 +479,7 @@ const users = [
 		name: "Lina",
 		age: 26,
 		sport: [{ name: "Pilates", niveau: "beginner", duration: 3 }],
+		bio: "Pilates pour renforcer le corps et l’esprit en douceur.",
 		url_image: "https://randomuser.me/api/portraits/women/11.jpg",
 		location: "Montpellier",
 	},
@@ -455,6 +492,7 @@ const users = [
 			{ name: "Climbing", niveau: "intermediate", duration: 2 },
 			{ name: "Gym", niveau: "beginner", duration: 3 },
 		],
+		bio: "Grimpeur amateur, toujours à la recherche de nouvelles sensations.",
 		url_image: "https://randomuser.me/api/portraits/men/12.jpg",
 		location: "Grenoble",
 	},
@@ -464,6 +502,7 @@ const users = [
 		name: "Sarah",
 		age: 24,
 		sport: [{ name: "Running", niveau: "advanced", duration: 5 }],
+		bio: "Runner expérimentée, j’adore les longues distances et les défis.",
 		url_image: "https://randomuser.me/api/portraits/women/13.jpg",
 		location: "Dijon",
 	},
@@ -476,6 +515,7 @@ const users = [
 			{ name: "Football", niveau: "beginner", duration: 2 },
 			{ name: "Basketball", niveau: "beginner", duration: 2 },
 		],
+		bio: "Débutant mais motivé, je découvre différents sports collectifs.",
 		url_image: "https://randomuser.me/api/portraits/men/14.jpg",
 		location: "Reims",
 	},
@@ -488,10 +528,13 @@ const users = [
 			{ name: "Yoga", niveau: "intermediate", duration: 4 },
 			{ name: "Dance", niveau: "beginner", duration: 3 },
 		],
+		bio: "Entre yoga et danse, je cultive énergie et créativité.",
 		url_image: "https://randomuser.me/api/portraits/women/15.jpg",
 		location: "Angers",
 	},
 ];
+
+
 app.use(cors("*"));
 app.get("/", (req, res) => {});
 
@@ -501,6 +544,10 @@ app.get("/users", (req, res) => {
 
 app.get("/events", (req, res) => {
 	res.json(events);
+});
+
+app.get("/sports", (req, res) => {
+	res.json(sports);
 });
 
 app.listen(port, () => {
