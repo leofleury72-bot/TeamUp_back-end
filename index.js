@@ -4,29 +4,29 @@ const port = 3310;
 const app = express();
 
 const sports = [
-  "Archery",
-  "Badminton",
-  "Basketball",
-  "Boxing",
-  "Climbing",
-  "Cycling",
-  "Dance",
-  "Football",
-  "Gym",
-  "Handball",
-  "Judo",
-  "Karate",
-  "Kayaking",
-  "Paddleboarding",
-  "Pilates",
-  "Rugby",
-  "Running",
-  "Skating",
-  "Surfing",
-  "Swimming",
-  "Tennis",
-  "Volleyball",
-  "Yoga"
+	"Archery",
+	"Badminton",
+	"Basketball",
+	"Boxing",
+	"Climbing",
+	"Cycling",
+	"Dance",
+	"Football",
+	"Gym",
+	"Handball",
+	"Judo",
+	"Karate",
+	"Kayaking",
+	"Paddleboarding",
+	"Pilates",
+	"Rugby",
+	"Running",
+	"Skating",
+	"Surfing",
+	"Swimming",
+	"Tennis",
+	"Volleyball",
+	"Yoga",
 ];
 
 const events = [
@@ -533,7 +533,6 @@ const users = [
 		location: "Angers",
 	},
 ];
-
 
 app.use(cors("*"));
 app.get("/", (req, res) => {});
