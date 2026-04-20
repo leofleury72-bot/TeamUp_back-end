@@ -32,7 +32,7 @@ const sports = [
 const events = [
 	{
 		id: 1,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80",
 		name: "Match de foot du dimanche",
 		host: "jean_dupont",
@@ -52,7 +52,7 @@ const events = [
 	},
 	{
 		id: 2,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
 		name: "Footing matinal Parc",
 		host: "marie_sport",
@@ -72,7 +72,7 @@ const events = [
 	},
 	{
 		id: 3,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=80",
 		name: "Tournoi de tennis doubles",
 		host: "tennisman42",
@@ -99,7 +99,7 @@ const events = [
 	},
 	{
 		id: 4,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
 		name: "Yoga en plein air",
 		host: "zen_claire",
@@ -119,7 +119,7 @@ const events = [
 	},
 	{
 		id: 5,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
 		name: "Basket 3x3 place Bellecour",
 		host: "slam_dunk_leo",
@@ -139,7 +139,7 @@ const events = [
 	},
 	{
 		id: 6,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80",
 		name: "Escalade salle mardi",
 		host: "grip_sarah",
@@ -159,7 +159,7 @@ const events = [
 	},
 	{
 		id: 7,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=800&q=80",
 		name: "Vélo sortie Beaujolais",
 		host: "pedal_thomas",
@@ -179,7 +179,7 @@ const events = [
 	},
 	{
 		id: 8,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=800&q=80",
 		name: "Natation libre piscine Garibaldi",
 		host: "aqua_remi",
@@ -199,7 +199,7 @@ const events = [
 	},
 	{
 		id: 9,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&q=80",
 		name: "Pétanque apéro Croix-Rousse",
 		host: "boule_francois",
@@ -225,7 +225,7 @@ const events = [
 	},
 	{
 		id: 10,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80",
 		name: "Badminton en salle",
 		host: "shuttle_ines",
@@ -245,7 +245,7 @@ const events = [
 	},
 	{
 		id: 11,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
 		name: "Trail urbain nocturne",
 		host: "night_runner_kim",
@@ -265,7 +265,7 @@ const events = [
 	},
 	{
 		id: 12,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&q=80",
 		name: "Boxe débutants samedi matin",
 		host: "coach_victor",
@@ -285,7 +285,7 @@ const events = [
 	},
 	{
 		id: 13,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&q=80",
 		name: "Frisbee ultimate Gerland",
 		host: "disc_leo",
@@ -305,7 +305,7 @@ const events = [
 	},
 	{
 		id: 14,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&q=80",
 		name: "Volleyball de plage",
 		host: "spike_valeria",
@@ -325,7 +325,7 @@ const events = [
 	},
 	{
 		id: 15,
-		url_img_event:
+		img_url_event:
 			"https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80",
 		name: "Randonnée Mont Pilat",
 		host: "hike_bernard",
