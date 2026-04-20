@@ -656,7 +656,6 @@ app.get("/bdd/events", (req, res) => {
 	});
 })
 */
-
 /* ------------ TEST BDD 2 ----------- */
 /*
 app.get("/bdd/users", (req, res) => {
@@ -716,7 +715,8 @@ app.get("/bdd/users", (req, res) => {
 	});
 });*/
 
-// ------------------------- Trying something part 1 -------------------------------
+// ------------------------- Trying something part 1 ------------------------------- //
+
 app.get("/bdd/users", (req, res) => {
 	let request = `SELECT 
 			users.*, 
@@ -733,29 +733,53 @@ app.get("/bdd/users", (req, res) => {
 		JOIN sports ON users_sports.us_sport_id = sports.sport_id 
 		JOIN levels ON users_sports.us_level_id = levels.level_id`
 
-	console.log("req.query:", req.query);
-	console.log("keys:", Object.keys(req.query));
-	console.log("length:", Object.keys(req.query).length);
+	console.log("req.query:", req.query, "| keys:", Object.keys(req.query), "| length:", Object.keys(req.query).length);
 
 	let filter = [];
+	let conditions = ""
 
+	// conditions -> username or id, sport (and level), location
 	if (!req.query || Object.keys(req.query).length > 0) {
     	console.log("GET Request Called with filters for /bdd/users");
 		
 		if(req.query.username !== undefined){
-			request += ` WHERE users.user_username = ? `;
+			conditions += ` WHERE users.user_username = ?`;
 			filter.push(req.query.username);
 		}
 		else if(req.query.id !== undefined){
-			request += ` WHERE users.user_id = ? `;
+			conditions += ` WHERE users.user_id = ?`;
 			filter.push(req.query.id);
 		}
+
+		if (req.query.sport !== undefined){
+			if(conditions === ""){
+				conditions += ` WHERE sports.sport_name = ?`;
+			} else {
+				conditions += ` AND sports.sport_name = ?`;
+			}
+			filter.push(req.query.sport);
+
+			if (req.query.level !== undefined){
+				conditions += ` AND levels.level_name = ?`;
+				filter.push(req.query.level);
+			}
+		}
+
+		if(req.query.location !== undefined){
+			if(conditions === ""){
+				conditions += ` WHERE users.user_location = ?`;
+			} else {
+				conditions += ` AND users.user_location = ?`;
+			}
+			filter.push(req.query.location)
+		}
+
+		request += conditions;
 		
 	} else {
 		console.log("GET Request Called without filters, just show all users base");
 	}
 
-	console.log(filter)
 
 	connection.query(request, filter, (err, rows) => {
 			if (err) throw err
@@ -799,7 +823,7 @@ app.get("/bdd/users", (req, res) => {
 });
 
 app.get("/bdd/events", (req, res) => {
-	connection.query(`SELECT 
+	let request = `SELECT 
 		e.event_id, 
 		e.event_name, 
         e.event_is_comp,
@@ -822,40 +846,137 @@ app.get("/bdd/events", (req, res) => {
 		LEFT JOIN users u ON u.user_id = eu.eu_user_id
         LEFT JOIN users m ON m.user_id = e.event_mvp_id
         LEFT JOIN events_winners ew ON ew.ew_event_id = e.event_id
-        LEFT JOIN users w ON w.user_id = ew.ew_user_id`, 
-		(err, rows) => {
-			if(err) throw err;
+        LEFT JOIN users w ON w.user_id = ew.ew_user_id`;
 
-			const eventsMap = [];
+	console.log("req.query:", req.query, "| keys:", Object.keys(req.query), "| length:", Object.keys(req.query).length);
 
-			rows.forEach((row) => {
-				if (!eventsMap[row.event_id]) {
-					eventsMap[row.event_id] = {
-						id: row.event_id,
-						name: row.event_name,
-						host: row.host_username,
-						is_comp : row.event_is_comp? true : false,
-						location: row.event_location,
-						description: row.event_description,
-						date: row.event_date,
-						max_people: row.event_max_people,
-						user_joining: [],
-						sports: {
-							name: row.sport_name,
-							level: row.event_is_comp ? row.event_sport_level_comp : row.level_name,
-						},
-						is_done: row.event_is_done? true:false,
-						mvp: row.event_is_done? row.mvp_username:false,
-						winners : [],
-					}
+	let conditions = "";
+	let filters = [];
+
+	// id, host username, is comp, location, user joining, by sport (level/ comp level), is done, mvp, winner
+	if (!req.query || Object.keys(req.query).length > 0) {
+    	console.log("GET Request Called with filters for /bdd/events");
+
+		if (req.query.id !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE e.event_id = ?`;
+			} else {
+				conditions += ` AND e.event_id = ?`;
+			}
+			filters.push(req.query.id);
+		}
+		if (req.query.host !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE h.user_username = ?`;
+			} else {
+				conditions += ` AND h.user_username = ?`;
+			}
+			filters.push(req.query.host);
+		}
+		if (req.query.isComp !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE e.event_is_comp = ?`;
+			} else {
+				conditions += ` AND e.event_is_comp = ?`;
+			}
+			filters.push(req.query.isComp ? 1 : 0);
+
+			if (req.query.sport !== undefined && req.query.level !== undefined) {
+				if (req.query.isComp) {
+					conditions += ` AND e.event_sport_level_comp = ?`;
+				} else {
+					conditions += ` AND l.level_name = ?`;
 				}
+				filters.push(req.query.level);
+			}
+		}
+		if (req.query.location !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE e.event_location = ?`;
+			} else {
+				conditions += ` AND e.event_location = ?`;
+			}
+			filters.push(req.query.location);
+		}
+		if (req.query.user_joining !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE u.user_username = ?`;
+			} else {
+				conditions += ` AND u.user_username = ?`;
+			}
+			filters.push(req.query.user_joining);
+		}
+		if (req.query.sport !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE s.sport_name = ?`;
+			} else {
+				conditions += ` AND s.sport_name = ?`;
+			}
+			filters.push(req.query.sport);
+		}
+		if (req.query.isDone !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE e.event_is_done = ?`;
+			} else {
+				conditions += ` AND e.event_is_done = ?`;
+			}
+			filters.push(req.query.isDone ? 1 : 0);
+		}
+		if (req.query.mvp !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE m.user_username = ?`;
+			} else {
+				conditions += ` AND m.user_username = ?`;
+			}
+			filters.push(req.query.mvp);
+		}
+		if (req.query.winner !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE w.user_username = ?`;
+			} else {
+				conditions += ` AND w.user_username = ?`;
+			}
+			filters.push(req.query.winner);
+		}
 
-				eventsMap[row.event_id].user_joining.push(row.participant_username);
-				if (row.event_is_done && eventsMap[row.event_id].winners[0]!= row.winner_username) {eventsMap[row.event_id].winners.push(row.winner_username)}
-			});
+		request += conditions;
+	} else {
+		console.log("GET Request Called without filters, just show all events base");
+	}
 
-			res.json(Object.values(eventsMap));
+	connection.query(request, filters, (err, rows) => {
+		if(err) throw err;
+
+		const eventsMap = [];
+
+		rows.forEach((row) => {
+			if (!eventsMap[row.event_id]) {
+				eventsMap[row.event_id] = {
+					id: row.event_id,
+					name: row.event_name,
+					host: row.host_username,
+					is_comp : row.event_is_comp? true : false,
+					location: row.event_location,
+					description: row.event_description,
+					date: row.event_date,
+					max_people: row.event_max_people,
+					user_joining: [],
+					sports: {
+						name: row.sport_name,
+						level: row.event_is_comp ? row.event_sport_level_comp : row.level_name,
+					},
+					is_done: row.event_is_done? true:false,
+					mvp: row.event_is_done? row.mvp_username:false,
+					winners : [],
+			}
+		}
+
+		eventsMap[row.event_id].user_joining.push(row.participant_username);
+		if (row.event_is_done && eventsMap[row.event_id].winners[0]!= row.winner_username) {eventsMap[row.event_id].winners.push(row.winner_username)}
 		});
+
+		res.json(Object.values(eventsMap));
+	});
 });
 
 app.get("/bdd/sports", (req, res) => {
@@ -956,7 +1077,19 @@ app.post("/bdd/addsport", (req, res) => {
 	});
 });
 */
+
+// ------------------------- Trying something part 2 ------------------------------- //
+
+
+
+
 /* --------------------------------------------------- */
+
+
+
+
+
+
 
 app.get("/events", (req, res) => {
 	res.json(events);
