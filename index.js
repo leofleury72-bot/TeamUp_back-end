@@ -4,6 +4,9 @@ const cors = require("cors");
 const port = 3310;
 const app = express();
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 const events = [
 	{
 		id: 1,
@@ -498,10 +501,10 @@ app.get("/sports", (req, res) => {
 /* -------------------- Connection --------------------- */
 
 const connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'solene',
-	password: 'password',
-	database: 'teamup' //database: 'teamuptest' ou 'temuptestdeux'
+	host: process.env.DB_HOST,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASSWORD,
+	database: process.env.DB_NAME,
 })
 
 connection.connect((err) => {
@@ -514,6 +517,8 @@ connection.connect((err) => {
 
 // ------------------------- Base de données ------------------------------- //
 
+// ----- GET fonction -----
+// -> Show users
 app.get("/bdd/users", (req, res) => {
 	let request = `SELECT 
 			users.*, 
@@ -619,6 +624,7 @@ app.get("/bdd/users", (req, res) => {
 	});
 });
 
+// -> Show events
 app.get("/bdd/events", (req, res) => {
 	let request = `SELECT 
 		e.event_id, 
@@ -776,6 +782,7 @@ app.get("/bdd/events", (req, res) => {
 	});
 });
 
+// -> Show sports
 app.get("/bdd/sports", (req, res) => {
 	connection.query(`SELECT * FROM sports`, (err, rows) => {
 		if (err) throw err
@@ -784,6 +791,7 @@ app.get("/bdd/sports", (req, res) => {
 	})
 })
 
+// -> Show levels
 app.get("/bdd/levels", (req, res) => {
 	connection.query(`SELECT * FROM levels`, (err, rows) => {
 		if (err) throw err
@@ -792,24 +800,58 @@ app.get("/bdd/levels", (req, res) => {
 	})
 })
 
+
+// ----- POST fonction -----
 app.use(express.json());
 
-/*
-app.post("/bdd/addsport", (req, res) => {
-	console.log("POST Request Called for /bdd/2/addevent endpoint")
+// -> Add a sport for users
+app.post("/bdd/add/sport_user", (req, res) => {
+	console.log("POST Request Called for /bdd/add/sportforuser");
 
 	const user = req.body.user_id;
 	const sport = req.body.sport_id;
 	const level = req.body.level_id;
-	const frenquecy = req.body.frequency
+	const frenquecy = req.body.frequency;
 
 	connection.query("INSERT INTO `users_sports`(`us_user_id`, `us_sport_id`, `us_level_id`, `us_frequency`) VALUES (?, ?, ?, ?)", [user, sport, level, frenquecy], (err, result) => {
 		if(err) throw err
 
-		res.send("Sport Added!");
+		res.send("Sport Added !");
 	});
 });
-*/
+
+app.post("/bdd/add/events", (req, res) => {
+	console.log("POST Request Called for /bdd/add/events");
+
+	const host = req.body.host; // tempo
+	const name = req.body.name; // need to check
+	const date = req.body.date;
+	const description = req.body.description; // need to check
+	const location = req.body.location; //need to check
+	const sport_id = req.body.sport;
+	const is_comp = req.body.comp;
+	const level = req.body.level;
+	const max_people = req.body.max_people;
+
+	connection.query(`INSERT INTO events (
+	event_host_id, 
+	event_name, 
+	event_date, 
+	event_description, 
+	event_location, 
+	event_is_comp, 
+	event_sport_id,
+	${is_comp? "event_level_id," : "event_rating,"}
+	event_max_people) 
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
+	[host, name, date, description, location, is_comp, sport_id, level, max_people],
+	(err, result) => {
+		if (err) throw err;
+
+		console.log(result)
+		res.send("Event Added !")
+	});
+})
 
 /* --------------------------------------------------- */
 
