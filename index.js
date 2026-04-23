@@ -34,9 +34,9 @@ const events = [
 		id: 1,
 		img_url_event:
 			"https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80",
-		name: "Match de foot du dimanche",
+		name: "Foot du dimanche",
 		host: "jean_dupont",
-		localisation: "Stade municipal de Lyon, Lyon",
+		localisation: "Stade municipal, Lyon",
 		description:
 			"Match amical entre deux équipes de quartier. Tous niveaux bienvenus, venez avec vos crampons !",
 		date: "2026-11-17",
@@ -54,7 +54,7 @@ const events = [
 		id: 2,
 		img_url_event:
 			"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
-		name: "Footing matinal Parc",
+		name: "Footing matinal",
 		host: "marie_sport",
 		localisation: "Parc de la Tête d'Or, Lyon",
 		description:
@@ -74,9 +74,9 @@ const events = [
 		id: 3,
 		img_url_event:
 			"https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=80",
-		name: "Tournoi de tennis doubles",
+		name: "Tournoi tennis doubles",
 		host: "tennisman42",
-		localisation: "Club de Tennis Gerland, Lyon",
+		localisation: "Club Tennis, Bordeaux",
 		description:
 			"Tournoi interne au club en format doubles. 8 équipes maximum, inscriptions fermes.",
 		date: "2026-11-09",
@@ -101,9 +101,9 @@ const events = [
 		id: 4,
 		img_url_event:
 			"https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
-		name: "Yoga en plein air",
+		name: "Yoga plein air",
 		host: "zen_claire",
-		localisation: "Berges du Rhône, Lyon",
+		localisation: "Berges de la Garonne, Bordeaux",
 		description:
 			"Séance de yoga Vinyasa en extérieur. Tapis indispensable, prévoir une tenue confortable.",
 		date: "2026-11-20",
@@ -121,9 +121,9 @@ const events = [
 		id: 5,
 		img_url_event:
 			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
-		name: "Basket 3x3 place Bellecour",
+		name: "Basket 3x3",
 		host: "slam_dunk_leo",
-		localisation: "Place Bellecour, Lyon",
+		localisation: "Place du Capitole, Toulouse",
 		description:
 			"Pickup game de basket en 3x3. On joue jusqu'à 15 points, les perdants laissent la place.",
 		date: "2026-11-19",
@@ -141,9 +141,9 @@ const events = [
 		id: 6,
 		img_url_event:
 			"https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80",
-		name: "Escalade salle mardi",
+		name: "Escalade salle",
 		host: "grip_sarah",
-		localisation: "Salle Climb Up, Villeurbanne",
+		localisation: "Salle Climb Up, Lille",
 		description:
 			"Session bloc en salle. On se retrouve à l'entrée et on grimpe ensemble. Chaussons fournis sur place.",
 		date: "2026-11-19",
@@ -161,9 +161,9 @@ const events = [
 		id: 7,
 		img_url_event:
 			"https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=800&q=80",
-		name: "Vélo sortie Beaujolais",
+		name: "Vélo Beaujolais",
 		host: "pedal_thomas",
-		localisation: "Départ Place des Terreaux, Lyon",
+		localisation: "Vieux-Port, Marseille",
 		description:
 			"Grande sortie vélo de route vers les collines du Beaujolais, environ 80 km. Niveau cardio requis.",
 		date: "2026-11-23",
@@ -181,9 +181,9 @@ const events = [
 		id: 8,
 		img_url_event:
 			"https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=800&q=80",
-		name: "Natation libre piscine Garibaldi",
+		name: "Natation libre",
 		host: "aqua_remi",
-		localisation: "Piscine Garibaldi, Lyon 7",
+		localisation: "Piscine Municipale, Nantes",
 		description:
 			"Créneaux de natation libre réservé en groupe. Idéal pour travailler son endurance.",
 		date: "2026-11-21",
@@ -200,10 +200,11 @@ const events = [
 	{
 		id: 9,
 		img_url_event:
-			"https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&q=80",
-		name: "Pétanque apéro Croix-Rousse",
+			"https://images.unsplash.com/photo-1565078682561-700bdf3cdfcf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGV0YW5xdWV8ZW58MHx8MHx8fDA%3D",
+
+		name: "Pétanque apéro",
 		host: "boule_francois",
-		localisation: "Square de la Croix-Rousse, Lyon",
+		localisation: "Place du Général de Gaulle, Lille",
 		description:
 			"Partie de pétanque conviviale suivie d'un apéro. Bouliers disponibles sur place.",
 		date: "2026-11-10",
@@ -227,9 +228,9 @@ const events = [
 		id: 10,
 		img_url_event:
 			"https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80",
-		name: "Badminton en salle",
+		name: "Badminton salle",
 		host: "shuttle_ines",
-		localisation: "Gymnase Joliot-Curie, Lyon 8",
+		localisation: "Gymnase Central, Paris",
 		description:
 			"Séance de badminton mixte. Raquettes disponibles en nombre limité, préférez la vôtre.",
 		date: "2026-11-22",
@@ -247,9 +248,9 @@ const events = [
 		id: 11,
 		img_url_event:
 			"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
-		name: "Trail urbain nocturne",
+		name: "Trail nocturne",
 		host: "night_runner_kim",
-		localisation: "Départ Fourvière, Lyon",
+		localisation: "Butte Montmartre, Paris",
 		description:
 			"Trail de nuit sur les collines de Fourvière et Saint-Just. Frontale obligatoire, environ 12 km.",
 		date: "2026-11-22",
@@ -267,9 +268,9 @@ const events = [
 		id: 12,
 		img_url_event:
 			"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&q=80",
-		name: "Boxe débutants samedi matin",
+		name: "Boxe débutants",
 		host: "coach_victor",
-		localisation: "Salle de Boxe Lyon Centre",
+		localisation: "Salle de Boxe, Strasbourg",
 		description:
 			"Initiation à la boxe anglaise pour les novices. Gants fournis, tenue de sport requise.",
 		date: "2026-11-16",
@@ -286,10 +287,10 @@ const events = [
 	{
 		id: 13,
 		img_url_event:
-			"https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&q=80",
-		name: "Frisbee ultimate Gerland",
+			"https://images.unsplash.com/photo-1584846884362-e1ea3d18e53f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZnJpc2JlZSUyMHVsdGltYXRlfGVufDB8fDB8fHww",
+		name: "Frisbee ultimate",
 		host: "disc_leo",
-		localisation: "Parc de Gerland, Lyon",
+		localisation: "Parc de la Citadelle, Strasbourg",
 		description:
 			"Match d'ultimate frisbee en format 7v7. Pas besoin d'expérience, l'esprit fair-play prime.",
 		date: "2026-11-24",
@@ -307,9 +308,9 @@ const events = [
 		id: 14,
 		img_url_event:
 			"https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&q=80",
-		name: "Volleyball de plage",
+		name: "Volleyball plage",
 		host: "spike_valeria",
-		localisation: "Plage des Berges du Rhône, Lyon",
+		localisation: "Plage du Prado, Marseille",
 		description:
 			"Beach volley 2v2 et 3v3 sur les terrains de sable des berges. Ambiance estivale garantie.",
 		date: "2026-11-25",
@@ -327,9 +328,9 @@ const events = [
 		id: 15,
 		img_url_event:
 			"https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80",
-		name: "Randonnée Mont Pilat",
+		name: "Rando Mont Pilat",
 		host: "hike_bernard",
-		localisation: "Départ Col de la Croix de Chaubouret, Loire",
+		localisation: "Col de Chaubouret, Saint-Étienne",
 		description:
 			"Randonnée en groupe de 18 km sur les crêtes du Pilat. Chaussures de marche obligatoires, pique-nique à prévoir.",
 		date: "2026-11-30",
