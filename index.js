@@ -846,6 +846,142 @@ const events = [
 		is_done: false,
 		comments: [],
 	},
+	{
+		id: 46,
+		img_url_event:
+			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
+		name: "Basket quartier Lyon",
+		host: "basket_lyon1",
+		localisation: "Gymnase Gerland, Lyon",
+		description:
+			"Match de basket 5x5 en salle. Niveau intermédiaire, venez en équipe ou seul !",
+		date: "2027-01-12",
+		heure: "18:00",
+		max_people: 10,
+		people_joining: ["alex_l", "mathieu_r"],
+		sport: { name: "Basketball", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 47,
+		img_url_event:
+			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
+		name: "Basket 3x3 Lyon",
+		host: "basket_lyon2",
+		localisation: "Terrain Monplaisir, Lyon",
+		description:
+			"Pickup game de basket en 3x3 en plein air. On joue jusqu'à 15 points, tous niveaux.",
+		date: "2027-01-15",
+		heure: "14:00",
+		max_people: 12,
+		people_joining: ["lucas_b", "theo_v", "sofia_m"],
+		sport: { name: "Basketball", niveau: "Tous niveaux" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 48,
+		img_url_event:
+			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
+		name: "Basket débutants Lyon",
+		host: "basket_lyon3",
+		localisation: "Gymnase La Duchère, Lyon",
+		description:
+			"Initiation au basketball pour débutants. Exercices techniques et petit match amical.",
+		date: "2027-01-18",
+		heure: "10:00",
+		max_people: 14,
+		people_joining: ["emma_d"],
+		sport: { name: "Basketball", niveau: "Débutant" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 49,
+		img_url_event:
+			"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+		name: "Gym collective Lyon",
+		host: "gym_lyon1",
+		localisation: "Salle de Sport Part-Dieu, Lyon",
+		description:
+			"Séance de gym collective : renforcement musculaire et cardio. Tenue de sport requise.",
+		date: "2027-01-13",
+		heure: "07:30",
+		max_people: 20,
+		people_joining: ["camille_d", "baptiste_m"],
+		sport: { name: "Gym", niveau: "Tous niveaux" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 50,
+		img_url_event:
+			"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+		name: "Gym tonique Lyon",
+		host: "gym_lyon2",
+		localisation: "Club Fitness Confluence, Lyon",
+		description:
+			"Cours de gym tonique en groupe. Travail du gainage, des abdos et de la souplesse.",
+		date: "2027-01-16",
+		heure: "12:00",
+		max_people: 15,
+		people_joining: ["julie_r", "marc_t", "noemie_b"],
+		sport: { name: "Gym", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 51,
+		img_url_event:
+			"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
+		name: "Footing Tête d'Or",
+		host: "run_lyon1",
+		localisation: "Parc de la Tête d'Or, Lyon",
+		description:
+			"Session de course de 6 km autour du parc. Rythme cool, idéal pour les débutants.",
+		date: "2027-01-14",
+		heure: "08:00",
+		max_people: 20,
+		people_joining: ["paul_v", "lea_b"],
+		sport: { name: "Running", niveau: "Débutant" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 52,
+		img_url_event:
+			"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
+		name: "Running berges du Rhône",
+		host: "run_lyon2",
+		localisation: "Berges du Rhône, Lyon",
+		description:
+			"Course de 10 km le long des berges du Rhône. Ambiance détendue, niveau intermédiaire.",
+		date: "2027-01-17",
+		heure: "09:00",
+		max_people: 15,
+		people_joining: ["simon_k", "anna_m", "remi_v"],
+		sport: { name: "Running", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 53,
+		img_url_event:
+			"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
+		name: "Running Fourvière",
+		host: "run_lyon3",
+		localisation: "Colline de Fourvière, Lyon",
+		description:
+			"Run dénivelé sur les pentes de Fourvière, environ 8 km. Niveau avancé recommandé.",
+		date: "2027-01-20",
+		heure: "07:00",
+		max_people: 12,
+		people_joining: ["hugo_r", "chloe_d"],
+		sport: { name: "Running", niveau: "Avancé" },
+		is_done: false,
+		comments: [],
+	},
 ];
 
 const users = [
