@@ -1,11 +1,16 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const mysql = require("mysql2")
 const cors = require("cors");
-const port = 3310;
 const app = express();
+app.use((req, res, next) => {
+  console.log("REQUEST:", req.method, req.url);
+  next();
+});
 
-const dotenv = require("dotenv");
-dotenv.config();
+const port = process.env.APP_PORT || 3310;
 
 const events = [
 	{
@@ -482,9 +487,11 @@ const users = [
 	},
 ];
 
+app.use(cors());
 
-app.use(cors("*"));
-app.get("/", (req, res) => {});
+
+app.get("/", (req, res) => {
+});
 
 app.get("/users", (req, res) => {
 	res.json(users);
@@ -492,10 +499,6 @@ app.get("/users", (req, res) => {
 
 app.get("/events", (req, res) => {
 	res.json(events);
-});
-
-app.get("/sports", (req, res) => {
-	res.json(sports);
 });
 
 /* -------------------- Connection --------------------- */
@@ -741,6 +744,14 @@ app.get("/bdd/events", (req, res) => {
 			}
 			filters.push(req.query.winner);
 		}
+		if (req.query.nothost !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE h.user_username != ?`;
+			} else {
+				conditions += ` AND h.user_username != ?`;
+			}
+			filters.push(req.query.nothost);
+		}
 
 		request += conditions;
 	} else {
@@ -766,7 +777,7 @@ app.get("/bdd/events", (req, res) => {
 					user_joining: [],
 					sports: {
 						name: row.sport_name,
-						level: row.event_is_comp ? row.event_sport_level_comp : row.level_name,
+						level: row.event_is_comp ? row.event_rating : row.level_name,
 					},
 					is_done: row.event_is_done? true:false,
 					mvp: row.event_is_done? row.mvp_username:false,
@@ -841,7 +852,7 @@ app.post("/bdd/add/events", (req, res) => {
 	event_location, 
 	event_is_comp, 
 	event_sport_id,
-	${is_comp? "event_level_id," : "event_rating,"}
+	${is_comp? "event_rating," : "event_level_id,"}
 	event_max_people) 
 	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
 	[host, name, date, description, location, is_comp, sport_id, level, max_people],
@@ -853,7 +864,23 @@ app.post("/bdd/add/events", (req, res) => {
 	});
 })
 
+app.post("/bdd/add/event_user", (req, res) => {
+	console.log("POST Request Called for /bdd/add/event_user");
+
+	const event_id = req.body.event_id;
+	const user_id = req.body.user_id;
+
+	connection.query(`INSERT INTO events_user VALUES (?, ?)`, 
+		[event_id, user_id], (err, result) => {
+		if(err) throw err
+
+		res.send("User added to the events !");
+	});
+})
+
 /* --------------------------------------------------- */
+
+console.log("PORT =", port);
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
