@@ -129,7 +129,7 @@ INSERT INTO events VALUES
 'Berges du Rhône, Lyon',0,0,23,5,NULL,20,NULL),
 (2,14,'Compétition Gym Full Body','2026-05-10 16:00:00',
 'Compétition de gym incluant force, endurance et cardio.',
-'Salle Fitness Pro, Paris',1,1,9,2,NULL,20,2);
+'Salle Fitness Pro, Paris',1,1,9,NULL,200,20,2);
 
 CREATE TABLE events_user (
     eu_event_id INT NOT NULL,
