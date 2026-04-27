@@ -4,23 +4,50 @@ dotenv.config();
 const express = require("express");
 const mysql = require("mysql2")
 const cors = require("cors");
+const port = process.env.APP_PORT || 3310;
 const app = express();
 app.use((req, res, next) => {
   console.log("REQUEST:", req.method, req.url);
   next();
 });
 
-const port = process.env.APP_PORT || 3310;
+const sports = [
+	"Archery",
+	"Badminton",
+	"Basketball",
+	"Boxing",
+	"Climbing",
+	"Cycling",
+	"Dance",
+	"Football",
+	"Gym",
+	"Handball",
+	"Judo",
+	"Karate",
+	"Kayaking",
+	"Paddleboarding",
+	"Pilates",
+	"Rugby",
+	"Running",
+	"Skating",
+	"Surfing",
+	"Swimming",
+	"Tennis",
+	"Volleyball",
+	"Yoga",
+];
 
 const events = [
 	{
 		id: 1,
-		name: "Match de foot du dimanche",
+		img_url_event:
+			"https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80",
+		name: "Foot du dimanche",
 		host: "jean_dupont",
-		localisation: "Stade municipal de Lyon, Lyon",
+		localisation: "Stade municipal, Lyon",
 		description:
 			"Match amical entre deux équipes de quartier. Tous niveaux bienvenus, venez avec vos crampons !",
-		date: "2024-11-17",
+		date: "2026-11-17",
 		heure: "10:00",
 		max_people: 22,
 		people_joining: ["alice93", "bob_runner", "carlos_v"],
@@ -33,12 +60,14 @@ const events = [
 	},
 	{
 		id: 2,
-		name: "Footing matinal Parc",
+		img_url_event:
+			"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
+		name: "Footing matinal",
 		host: "marie_sport",
 		localisation: "Parc de la Tête d'Or, Lyon",
 		description:
 			"Session de course légère de 8 km autour du parc. Ambiance détendue, on attend personne !",
-		date: "2024-11-18",
+		date: "2026-11-18",
 		heure: "07:30",
 		max_people: 15,
 		people_joining: ["jean_dupont", "lucia_m"],
@@ -51,12 +80,14 @@ const events = [
 	},
 	{
 		id: 3,
-		name: "Tournoi de tennis doubles",
+		img_url_event:
+			"https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=80",
+		name: "Tournoi tennis doubles",
 		host: "tennisman42",
-		localisation: "Club de Tennis Gerland, Lyon",
+		localisation: "Club Tennis, Bordeaux",
 		description:
 			"Tournoi interne au club en format doubles. 8 équipes maximum, inscriptions fermes.",
-		date: "2024-11-09",
+		date: "2026-11-09",
 		heure: "14:00",
 		max_people: 16,
 		people_joining: [
@@ -76,12 +107,14 @@ const events = [
 	},
 	{
 		id: 4,
-		name: "Yoga en plein air",
+		img_url_event:
+			"https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
+		name: "Yoga plein air",
 		host: "zen_claire",
-		localisation: "Berges du Rhône, Lyon",
+		localisation: "Berges de la Garonne, Bordeaux",
 		description:
 			"Séance de yoga Vinyasa en extérieur. Tapis indispensable, prévoir une tenue confortable.",
-		date: "2024-11-20",
+		date: "2026-11-20",
 		heure: "08:00",
 		max_people: 20,
 		people_joining: ["marie_sport", "lucia_m", "natalia_s"],
@@ -94,12 +127,14 @@ const events = [
 	},
 	{
 		id: 5,
-		name: "Basket 3x3 place Bellecour",
+		img_url_event:
+			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
+		name: "Basket 3x3",
 		host: "slam_dunk_leo",
-		localisation: "Place Bellecour, Lyon",
+		localisation: "Place du Capitole, Toulouse",
 		description:
 			"Pickup game de basket en 3x3. On joue jusqu'à 15 points, les perdants laissent la place.",
-		date: "2024-11-19",
+		date: "2026-11-19",
 		heure: "18:00",
 		max_people: 12,
 		people_joining: ["carlos_v", "omar_b", "hugo_lp"],
@@ -112,12 +147,14 @@ const events = [
 	},
 	{
 		id: 6,
-		name: "Escalade salle mardi",
+		img_url_event:
+			"https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80",
+		name: "Escalade salle",
 		host: "grip_sarah",
-		localisation: "Salle Climb Up, Villeurbanne",
+		localisation: "Salle Climb Up, Lille",
 		description:
 			"Session bloc en salle. On se retrouve à l'entrée et on grimpe ensemble. Chaussons fournis sur place.",
-		date: "2024-11-19",
+		date: "2026-11-19",
 		heure: "19:30",
 		max_people: 8,
 		people_joining: ["yuki_t", "pierre_k"],
@@ -130,12 +167,14 @@ const events = [
 	},
 	{
 		id: 7,
-		name: "Vélo sortie Beaujolais",
+		img_url_event:
+			"https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=800&q=80",
+		name: "Vélo Beaujolais",
 		host: "pedal_thomas",
-		localisation: "Départ Place des Terreaux, Lyon",
+		localisation: "Vieux-Port, Marseille",
 		description:
 			"Grande sortie vélo de route vers les collines du Beaujolais, environ 80 km. Niveau cardio requis.",
-		date: "2024-11-23",
+		date: "2026-11-23",
 		heure: "08:30",
 		max_people: 10,
 		people_joining: ["jean_dupont", "marie_sport", "carlos_v", "alice93"],
@@ -148,12 +187,14 @@ const events = [
 	},
 	{
 		id: 8,
-		name: "Natation libre piscine Garibaldi",
+		img_url_event:
+			"https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=800&q=80",
+		name: "Natation libre",
 		host: "aqua_remi",
-		localisation: "Piscine Garibaldi, Lyon 7",
+		localisation: "Piscine Municipale, Nantes",
 		description:
 			"Créneaux de natation libre réservé en groupe. Idéal pour travailler son endurance.",
-		date: "2024-11-21",
+		date: "2026-11-21",
 		heure: "12:00",
 		max_people: 6,
 		people_joining: ["lucia_m", "natalia_s"],
@@ -166,12 +207,15 @@ const events = [
 	},
 	{
 		id: 9,
-		name: "Pétanque apéro Croix-Rousse",
+		img_url_event:
+			"https://images.unsplash.com/photo-1565078682561-700bdf3cdfcf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGV0YW5xdWV8ZW58MHx8MHx8fDA%3D",
+
+		name: "Pétanque apéro",
 		host: "boule_francois",
-		localisation: "Square de la Croix-Rousse, Lyon",
+		localisation: "Place du Général de Gaulle, Lille",
 		description:
 			"Partie de pétanque conviviale suivie d'un apéro. Bouliers disponibles sur place.",
-		date: "2024-11-10",
+		date: "2026-11-10",
 		heure: "16:00",
 		max_people: 12,
 		people_joining: [
@@ -190,12 +234,14 @@ const events = [
 	},
 	{
 		id: 10,
-		name: "Badminton en salle",
+		img_url_event:
+			"https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80",
+		name: "Badminton salle",
 		host: "shuttle_ines",
-		localisation: "Gymnase Joliot-Curie, Lyon 8",
+		localisation: "Gymnase Central, Paris",
 		description:
 			"Séance de badminton mixte. Raquettes disponibles en nombre limité, préférez la vôtre.",
-		date: "2024-11-22",
+		date: "2026-11-22",
 		heure: "20:00",
 		max_people: 8,
 		people_joining: ["yuki_t", "omar_b", "lucia_m"],
@@ -208,12 +254,14 @@ const events = [
 	},
 	{
 		id: 11,
-		name: "Trail urbain nocturne",
+		img_url_event:
+			"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
+		name: "Trail nocturne",
 		host: "night_runner_kim",
-		localisation: "Départ Fourvière, Lyon",
+		localisation: "Butte Montmartre, Paris",
 		description:
 			"Trail de nuit sur les collines de Fourvière et Saint-Just. Frontale obligatoire, environ 12 km.",
-		date: "2024-11-22",
+		date: "2026-11-22",
 		heure: "21:00",
 		max_people: 20,
 		people_joining: ["marie_sport", "pedal_thomas", "grip_sarah"],
@@ -226,12 +274,14 @@ const events = [
 	},
 	{
 		id: 12,
-		name: "Boxe débutants samedi matin",
+		img_url_event:
+			"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&q=80",
+		name: "Boxe débutants",
 		host: "coach_victor",
-		localisation: "Salle de Boxe Lyon Centre",
+		localisation: "Salle de Boxe, Strasbourg",
 		description:
 			"Initiation à la boxe anglaise pour les novices. Gants fournis, tenue de sport requise.",
-		date: "2024-11-16",
+		date: "2026-11-16",
 		heure: "10:30",
 		max_people: 10,
 		people_joining: ["carlos_v", "hugo_lp", "alice93", "bob_runner"],
@@ -244,12 +294,14 @@ const events = [
 	},
 	{
 		id: 13,
-		name: "Frisbee ultimate Gerland",
+		img_url_event:
+			"https://images.unsplash.com/photo-1584846884362-e1ea3d18e53f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZnJpc2JlZSUyMHVsdGltYXRlfGVufDB8fDB8fHww",
+		name: "Frisbee ultimate",
 		host: "disc_leo",
-		localisation: "Parc de Gerland, Lyon",
+		localisation: "Parc de la Citadelle, Strasbourg",
 		description:
 			"Match d'ultimate frisbee en format 7v7. Pas besoin d'expérience, l'esprit fair-play prime.",
-		date: "2024-11-24",
+		date: "2026-11-24",
 		heure: "15:00",
 		max_people: 14,
 		people_joining: ["jean_dupont", "natalia_s", "yuki_t"],
@@ -262,12 +314,14 @@ const events = [
 	},
 	{
 		id: 14,
-		name: "Volleyball de plage",
+		img_url_event:
+			"https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&q=80",
+		name: "Volleyball plage",
 		host: "spike_valeria",
-		localisation: "Plage des Berges du Rhône, Lyon",
+		localisation: "Plage du Prado, Marseille",
 		description:
 			"Beach volley 2v2 et 3v3 sur les terrains de sable des berges. Ambiance estivale garantie.",
-		date: "2024-11-25",
+		date: "2026-11-25",
 		heure: "14:00",
 		max_people: 12,
 		people_joining: ["slam_dunk_leo", "aqua_remi", "zen_claire"],
@@ -280,12 +334,14 @@ const events = [
 	},
 	{
 		id: 15,
-		name: "Randonnée Mont Pilat",
+		img_url_event:
+			"https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80",
+		name: "Rando Mont Pilat",
 		host: "hike_bernard",
-		localisation: "Départ Col de la Croix de Chaubouret, Loire",
+		localisation: "Col de Chaubouret, Saint-Étienne",
 		description:
 			"Randonnée en groupe de 18 km sur les crêtes du Pilat. Chaussures de marche obligatoires, pique-nique à prévoir.",
-		date: "2024-11-30",
+		date: "2026-11-30",
 		heure: "09:00",
 		max_people: 15,
 		people_joining: [
@@ -300,6 +356,639 @@ const events = [
 		},
 		is_done: false,
 		comments: ["Covoiturage organisé depuis Lyon, voir le fil de discussion"],
+	},
+	{
+		id: 16,
+		img_url_event:
+			"https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80",
+		name: "Foot du samedi",
+		host: "lucas_foot",
+		localisation: "Stade Jean Bouin, Paris",
+		description:
+			"Match amical en 11v11. Tous niveaux bienvenus, venez avec vos crampons !",
+		date: "2026-12-05",
+		heure: "15:00",
+		max_people: 22,
+		people_joining: ["mario_r", "kevin_b"],
+		sport: { name: "Football", niveau: "Débutant" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 17,
+		img_url_event:
+			"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
+		name: "Footing du soir",
+		host: "clara_run",
+		localisation: "Parc Borély, Marseille",
+		description:
+			"Session de course de 10 km en bord de mer. Ambiance détendue.",
+		date: "2026-12-06",
+		heure: "18:00",
+		max_people: 15,
+		people_joining: ["paul_m"],
+		sport: { name: "Running", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 18,
+		img_url_event:
+			"https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=80",
+		name: "Tennis simple messieurs",
+		host: "rafa_t",
+		localisation: "Club Tennis, Nantes",
+		description: "Tournoi simple messieurs. 8 joueurs maximum.",
+		date: "2026-12-07",
+		heure: "10:00",
+		max_people: 8,
+		people_joining: ["theo_k", "sam_b"],
+		sport: { name: "Tennis", niveau: "Avancé" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 19,
+		img_url_event:
+			"https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
+		name: "Yoga du matin",
+		host: "luna_yoga",
+		localisation: "Jardin des Plantes, Paris",
+		description: "Séance de yoga Hatha en plein air. Tapis indispensable.",
+		date: "2026-12-08",
+		heure: "07:00",
+		max_people: 20,
+		people_joining: ["emma_s", "lea_v"],
+		sport: { name: "Yoga", niveau: "Tous niveaux" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 20,
+		img_url_event:
+			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
+		name: "Basket 5x5",
+		host: "dunk_pierre",
+		localisation: "Gymnase Coubertin, Lyon",
+		description: "Match de basket en 5x5. On joue jusqu'à 3 sets.",
+		date: "2026-12-09",
+		heure: "19:00",
+		max_people: 10,
+		people_joining: ["ali_b", "chris_m"],
+		sport: { name: "Basketball", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 21,
+		img_url_event:
+			"https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80",
+		name: "Escalade falaise",
+		host: "rock_julie",
+		localisation: "Falaise de Buoux, Apt",
+		description: "Sortie escalade en falaise naturelle. Matériel obligatoire.",
+		date: "2026-12-10",
+		heure: "09:00",
+		max_people: 8,
+		people_joining: ["max_g"],
+		sport: { name: "Escalade", niveau: "Avancé" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 22,
+		img_url_event:
+			"https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=800&q=80",
+		name: "Sortie vélo côtière",
+		host: "velo_anne",
+		localisation: "Promenade des Anglais, Nice",
+		description:
+			"Balade vélo de route le long de la côte, 60 km. Niveau cardio requis.",
+		date: "2026-12-11",
+		heure: "08:00",
+		max_people: 10,
+		people_joining: ["luc_d", "mia_r"],
+		sport: { name: "Cyclisme", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 23,
+		img_url_event:
+			"https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=800&q=80",
+		name: "Natation endurance",
+		host: "swim_felix",
+		localisation: "Piscine Olympique, Toulouse",
+		description: "Session natation axée endurance. 2 km en continu.",
+		date: "2026-12-12",
+		heure: "07:00",
+		max_people: 6,
+		people_joining: ["nina_b"],
+		sport: { name: "Natation", niveau: "Avancé" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 24,
+		img_url_event:
+			"https://images.unsplash.com/photo-1565078682561-700bdf3cdfcf?w=500&q=60",
+		name: "Pétanque hivernale",
+		host: "boule_marc",
+		localisation: "Place de la Comédie, Montpellier",
+		description: "Partie de pétanque conviviale. Bouliers disponibles.",
+		date: "2026-12-13",
+		heure: "14:00",
+		max_people: 12,
+		people_joining: ["rene_l", "gaston_b"],
+		sport: { name: "Pétanque", niveau: "Tous niveaux" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 25,
+		img_url_event:
+			"https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80",
+		name: "Badminton compétition",
+		host: "smash_leo",
+		localisation: "Palais des Sports, Grenoble",
+		description:
+			"Tournoi de badminton interclubs. Raquettes personnelles recommandées.",
+		date: "2026-12-14",
+		heure: "13:00",
+		max_people: 16,
+		people_joining: ["jade_m", "tom_r"],
+		sport: { name: "Badminton", niveau: "Avancé" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 26,
+		img_url_event:
+			"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
+		name: "Trail matinal",
+		host: "trail_sophie",
+		localisation: "Massif de l'Estérel, Fréjus",
+		description: "Trail de 15 km sur les sentiers rouges de l'Estérel.",
+		date: "2026-12-15",
+		heure: "08:00",
+		max_people: 20,
+		people_joining: ["alex_t", "camille_r"],
+		sport: { name: "Trail", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 27,
+		img_url_event:
+			"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&q=80",
+		name: "Boxe intermédiaire",
+		host: "coach_linda",
+		localisation: "Boxing Club, Bordeaux",
+		description:
+			"Entraînement boxe anglaise niveau intermédiaire. Gants obligatoires.",
+		date: "2026-12-16",
+		heure: "18:30",
+		max_people: 12,
+		people_joining: ["ryan_k"],
+		sport: { name: "Boxe", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 28,
+		img_url_event:
+			"https://images.unsplash.com/photo-1584846884362-e1ea3d18e53f?w=500&q=60",
+		name: "Frisbee débutants",
+		host: "disc_nora",
+		localisation: "Parc de la Tête d'Or, Lyon",
+		description: "Initiation à l'ultimate frisbee. Aucune expérience requise.",
+		date: "2026-12-17",
+		heure: "14:00",
+		max_people: 14,
+		people_joining: ["hugo_d", "lea_m"],
+		sport: { name: "Ultimate Frisbee", niveau: "Tous niveaux" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 29,
+		img_url_event:
+			"https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&q=80",
+		name: "Volleyball en salle",
+		host: "volley_hugo",
+		localisation: "Gymnase Rangueil, Toulouse",
+		description: "Match de volleyball en salle. 6v6, tous niveaux.",
+		date: "2026-12-18",
+		heure: "20:00",
+		max_people: 12,
+		people_joining: ["ines_v", "paul_s"],
+		sport: { name: "Volleyball", niveau: "Débutant" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 30,
+		img_url_event:
+			"https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80",
+		name: "Rando Vercors",
+		host: "hike_leo",
+		localisation: "Gorges de la Bourne, Villard-de-Lans",
+		description:
+			"Randonnée de 20 km dans le Vercors. Chaussures de marche obligatoires.",
+		date: "2026-12-19",
+		heure: "08:30",
+		max_people: 15,
+		people_joining: ["marc_b", "elise_r"],
+		sport: { name: "Randonnée", niveau: "Avancé" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 31,
+		img_url_event:
+			"https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80",
+		name: "Foot en salle",
+		host: "futsal_nico",
+		localisation: "Arena Futsal, Strasbourg",
+		description:
+			"Match de futsal 5v5. Crampons interdits, chaussures indoor obligatoires.",
+		date: "2026-12-20",
+		heure: "20:00",
+		max_people: 10,
+		people_joining: ["theo_m", "sam_r"],
+		sport: { name: "Football", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 32,
+		img_url_event:
+			"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
+		name: "Running hivernal",
+		host: "run_baptiste",
+		localisation: "Parc de la Ciutadella, Barcelone",
+		description: "Course de 12 km par temps frais. Ambiance conviviale.",
+		date: "2026-12-21",
+		heure: "09:00",
+		max_people: 20,
+		people_joining: ["chloe_v"],
+		sport: { name: "Running", niveau: "Débutant" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 33,
+		img_url_event:
+			"https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=80",
+		name: "Tennis dames",
+		host: "tennis_clara",
+		localisation: "Tennis Club, Rennes",
+		description: "Tournoi féminin en format simple. 8 joueuses maximum.",
+		date: "2026-12-22",
+		heure: "11:00",
+		max_people: 8,
+		people_joining: ["laura_k", "anna_b"],
+		sport: { name: "Tennis", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 34,
+		img_url_event:
+			"https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
+		name: "Yoga Ashtanga",
+		host: "yogi_paul",
+		localisation: "Studio Zen, Lille",
+		description:
+			"Séance de yoga Ashtanga en intérieur. Niveau intermédiaire recommandé.",
+		date: "2026-12-23",
+		heure: "09:00",
+		max_people: 15,
+		people_joining: ["mia_l", "jade_s"],
+		sport: { name: "Yoga", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 35,
+		img_url_event:
+			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
+		name: "Basket féminin",
+		host: "basket_eva",
+		localisation: "Gymnase Hélène Boucher, Paris",
+		description: "Match de basket féminin. 5v5, niveau intermédiaire.",
+		date: "2026-12-27",
+		heure: "17:00",
+		max_people: 10,
+		people_joining: ["sara_m", "julia_b"],
+		sport: { name: "Basketball", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 36,
+		img_url_event:
+			"https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80",
+		name: "Escalade compétition",
+		host: "bloc_tom",
+		localisation: "Arkose Nation, Paris",
+		description:
+			"Compétition de bloc en salle. Catégories débutant et intermédiaire.",
+		date: "2026-12-28",
+		heure: "14:00",
+		max_people: 20,
+		people_joining: ["leo_g", "nina_k"],
+		sport: { name: "Escalade", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 37,
+		img_url_event:
+			"https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=800&q=80",
+		name: "Cyclosportive hivernale",
+		host: "velo_marc",
+		localisation: "Col du Tourmalet, Tarbes",
+		description:
+			"Cyclosportive hivernale, 100 km avec dénivelé. Niveau avancé requis.",
+		date: "2026-12-29",
+		heure: "07:30",
+		max_people: 15,
+		people_joining: ["pierre_v", "lucie_m"],
+		sport: { name: "Cyclisme", niveau: "Avancé" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 38,
+		img_url_event:
+			"https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=800&q=80",
+		name: "Natation débutants",
+		host: "swim_alice",
+		localisation: "Piscine Jean Bouin, Bordeaux",
+		description:
+			"Initiation natation pour débutants. Apprentissage des 4 nages.",
+		date: "2026-12-30",
+		heure: "10:00",
+		max_people: 8,
+		people_joining: ["tom_b"],
+		sport: { name: "Natation", niveau: "Débutant" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 39,
+		img_url_event:
+			"https://images.unsplash.com/photo-1565078682561-700bdf3cdfcf?w=500&q=60",
+		name: "Pétanque nocturne",
+		host: "boule_sophie",
+		localisation: "Cours Mirabeau, Aix-en-Provence",
+		description:
+			"Pétanque nocturne avec boulodrome éclairé. Ambiance festive garantie.",
+		date: "2027-01-03",
+		heure: "19:00",
+		max_people: 16,
+		people_joining: ["fred_m", "pascal_r"],
+		sport: { name: "Pétanque", niveau: "Tous niveaux" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 40,
+		img_url_event:
+			"https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80",
+		name: "Badminton débutants",
+		host: "shuttle_marc",
+		localisation: "Gymnase Lakanal, Bordeaux",
+		description: "Initiation badminton. Raquettes fournies sur place.",
+		date: "2027-01-04",
+		heure: "14:00",
+		max_people: 12,
+		people_joining: ["eva_l"],
+		sport: { name: "Badminton", niveau: "Débutant" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 41,
+		img_url_event:
+			"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
+		name: "Trail des crêtes",
+		host: "trail_hugo",
+		localisation: "Crêtes des Vosges, Colmar",
+		description:
+			"Trail de 18 km sur les crêtes vosgiennes. Frontale recommandée.",
+		date: "2027-01-05",
+		heure: "09:00",
+		max_people: 15,
+		people_joining: ["lea_r", "tom_v"],
+		sport: { name: "Trail", niveau: "Avancé" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 42,
+		img_url_event:
+			"https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&q=80",
+		name: "Boxe thaï",
+		host: "coach_sam",
+		localisation: "Salle de Combat, Nantes",
+		description:
+			"Entraînement muay-thaï. Protège-tibias et gants obligatoires.",
+		date: "2027-01-06",
+		heure: "19:00",
+		max_people: 10,
+		people_joining: ["nico_b", "lara_m"],
+		sport: { name: "Boxe", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 43,
+		img_url_event:
+			"https://images.unsplash.com/photo-1584846884362-e1ea3d18e53f?w=500&q=60",
+		name: "Frisbee avancé",
+		host: "disc_sara",
+		localisation: "Plaine des Jeux, Rennes",
+		description:
+			"Match d'ultimate frisbee niveau avancé. Stratégies et jeu en équipe.",
+		date: "2027-01-07",
+		heure: "15:00",
+		max_people: 14,
+		people_joining: ["jules_k", "maria_v"],
+		sport: { name: "Ultimate Frisbee", niveau: "Avancé" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 44,
+		img_url_event:
+			"https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&q=80",
+		name: "Beach volley hivernal",
+		host: "volley_emma",
+		localisation: "Plage de la Baule, Saint-Nazaire",
+		description:
+			"Beach volley même en hiver ! 2v2 sur sable. Ambiance bonne humeur.",
+		date: "2027-01-08",
+		heure: "13:00",
+		max_people: 8,
+		people_joining: ["leo_s", "chloe_m"],
+		sport: { name: "Volleyball", niveau: "Tous niveaux" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 45,
+		img_url_event:
+			"https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&q=80",
+		name: "Rando Pyrénées",
+		host: "hike_anna",
+		localisation: "Cirque de Gavarnie, Luz-Saint-Sauveur",
+		description:
+			"Randonnée dans le cirque de Gavarnie, 16 km. Pique-nique à prévoir.",
+		date: "2027-01-10",
+		heure: "08:00",
+		max_people: 12,
+		people_joining: ["pierre_b", "lucie_v", "hugo_m"],
+		sport: { name: "Randonnée", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 46,
+		img_url_event:
+			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
+		name: "Basket quartier Lyon",
+		host: "basket_lyon1",
+		localisation: "Gymnase Gerland, Lyon",
+		description:
+			"Match de basket 5x5 en salle. Niveau intermédiaire, venez en équipe ou seul !",
+		date: "2027-01-12",
+		heure: "18:00",
+		max_people: 10,
+		people_joining: ["alex_l", "mathieu_r"],
+		sport: { name: "Basketball", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 47,
+		img_url_event:
+			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
+		name: "Basket 3x3 Lyon",
+		host: "basket_lyon2",
+		localisation: "Terrain Monplaisir, Lyon",
+		description:
+			"Pickup game de basket en 3x3 en plein air. On joue jusqu'à 15 points, tous niveaux.",
+		date: "2027-01-15",
+		heure: "14:00",
+		max_people: 12,
+		people_joining: ["lucas_b", "theo_v", "sofia_m"],
+		sport: { name: "Basketball", niveau: "Tous niveaux" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 48,
+		img_url_event:
+			"https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80",
+		name: "Basket débutants Lyon",
+		host: "basket_lyon3",
+		localisation: "Gymnase La Duchère, Lyon",
+		description:
+			"Initiation au basketball pour débutants. Exercices techniques et petit match amical.",
+		date: "2027-01-18",
+		heure: "10:00",
+		max_people: 14,
+		people_joining: ["emma_d"],
+		sport: { name: "Basketball", niveau: "Débutant" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 49,
+		img_url_event:
+			"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+		name: "Gym collective Lyon",
+		host: "gym_lyon1",
+		localisation: "Salle de Sport Part-Dieu, Lyon",
+		description:
+			"Séance de gym collective : renforcement musculaire et cardio. Tenue de sport requise.",
+		date: "2027-01-13",
+		heure: "07:30",
+		max_people: 20,
+		people_joining: ["camille_d", "baptiste_m"],
+		sport: { name: "Gym", niveau: "Tous niveaux" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 50,
+		img_url_event:
+			"https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
+		name: "Gym tonique Lyon",
+		host: "gym_lyon2",
+		localisation: "Club Fitness Confluence, Lyon",
+		description:
+			"Cours de gym tonique en groupe. Travail du gainage, des abdos et de la souplesse.",
+		date: "2027-01-16",
+		heure: "12:00",
+		max_people: 15,
+		people_joining: ["julie_r", "marc_t", "noemie_b"],
+		sport: { name: "Gym", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 51,
+		img_url_event:
+			"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
+		name: "Footing Tête d'Or",
+		host: "run_lyon1",
+		localisation: "Parc de la Tête d'Or, Lyon",
+		description:
+			"Session de course de 6 km autour du parc. Rythme cool, idéal pour les débutants.",
+		date: "2027-01-14",
+		heure: "08:00",
+		max_people: 20,
+		people_joining: ["paul_v", "lea_b"],
+		sport: { name: "Running", niveau: "Débutant" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 52,
+		img_url_event:
+			"https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80",
+		name: "Running berges du Rhône",
+		host: "run_lyon2",
+		localisation: "Berges du Rhône, Lyon",
+		description:
+			"Course de 10 km le long des berges du Rhône. Ambiance détendue, niveau intermédiaire.",
+		date: "2027-01-17",
+		heure: "09:00",
+		max_people: 15,
+		people_joining: ["simon_k", "anna_m", "remi_v"],
+		sport: { name: "Running", niveau: "Intermédiaire" },
+		is_done: false,
+		comments: [],
+	},
+	{
+		id: 53,
+		img_url_event:
+			"https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80",
+		name: "Running Fourvière",
+		host: "run_lyon3",
+		localisation: "Colline de Fourvière, Lyon",
+		description:
+			"Run dénivelé sur les pentes de Fourvière, environ 8 km. Niveau avancé recommandé.",
+		date: "2027-01-20",
+		heure: "07:00",
+		max_people: 12,
+		people_joining: ["hugo_r", "chloe_d"],
+		sport: { name: "Running", niveau: "Avancé" },
+		is_done: false,
+		comments: [],
 	},
 ];
 
@@ -489,7 +1178,6 @@ const users = [
 
 app.use(cors());
 
-
 app.get("/", (req, res) => {
 });
 
@@ -500,6 +1188,10 @@ app.get("/users", (req, res) => {
 app.get("/events", (req, res) => {
 	res.json(events);
 });
+
+app.get("/sports", (req, res) => {
+	res.json(sports);
+})
 
 /* -------------------- Connection --------------------- */
 
