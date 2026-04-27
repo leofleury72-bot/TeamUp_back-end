@@ -125,12 +125,21 @@ CREATE TABLE events (
 ) ENGINE=InnoDB;
 
 INSERT INTO events VALUES
-(1,7,'Yoga en plein air','2026-05-15 16:45:00',
-'Séance de yoga Vinyasa en extérieur. Tapis indispensable, prévoir une tenue confortable.',
-'Berges du Rhône, Lyon',0,0,23,5,NULL,20,NULL),
-(2,14,'Compétition Gym Full Body','2026-05-10 16:00:00',
-'Compétition de gym incluant force, endurance et cardio.',
-'Salle Fitness Pro, Paris',1,1,9,NULL,200,20,2);
+(1,7,'Yoga en plein air','2026-05-15 16:45:00','Séance de yoga Vinyasa en extérieur.','Berges du Rhône, Lyon',0,0,23,5,20,NULL),
+(2,14,'Compétition Gym Full Body','2026-05-10 16:00:00','Compétition de gym.','Salle Fitness Pro, Paris',1,1,9,NULL,20,2),
+(3,2,'small basketball match','2026-05-10 16:00:00','basketball match for fun','Lyon',0,0,3,NULL,10,NULL),
+(4,2,'Pétanque + Apéro','2026-05-10 17:30:00','Pétanque + apéro','Stade de pétanque, Lyon',0,0,15,NULL,6,NULL),
+(5,2,'Qui pour un 2v2 Judo ?','2026-05-13 05:00:00','ALED','Lyon',1,0,11,4,3,NULL),
+(6,3,'Running matinal','2026-06-01 07:30:00','Sortie running 5km','Parc Borély, Marseille',0,0,17,1,12,NULL),
+(7,9,'Atelier danse freestyle','2026-06-03 18:00:00','Exprime-toi','Strasbourg Centre',0,0,7,5,20,NULL),
+(8,6,'Ride vélo urbain','2026-06-05 10:00:00','Balade vélo','Lille Grand Place',0,0,6,2,15,NULL),
+(9,11,'Pilates douceur','2026-05-02 09:00:00','Renforcement','Montpellier Studio',0,1,24,1,10,NULL),
+(10,10,'Challenge escalade','2026-05-03 14:00:00','Bloc et vitesse','Salle Climb Rennes',1,1,5,3,10,10),
+(11,13,'Semi-marathon training race','2026-05-04 08:00:00','Course 10km','Dijon Parc',1,1,17,3,25,13),
+(12,8,'Tournoi Boxe amateur','2026-06-10 19:00:00','Matchs amateurs','Nantes Gym Hall',1,0,4,3,8,NULL),
+(13,14,'Mini coupe football','2026-06-12 16:00:00','Tournoi 5v5','Reims Stade',1,0,8,2,14,NULL),
+(14,7,'Yoga flow avancé','2026-06-08 18:30:00','Flow dynamique','Toulouse Jardin',0,0,23,3,15,NULL),
+(15,4,'Tennis détente','2026-06-06 17:00:00','Matchs amicaux','Bordeaux Club',0,0,21,2,8,NULL);
 
 CREATE TABLE events_user (
     eu_event_id INT NOT NULL,
@@ -138,9 +147,18 @@ CREATE TABLE events_user (
     PRIMARY KEY (eu_event_id, eu_user_id)
 ) ENGINE=InnoDB;
 INSERT INTO events_user VALUES
-(1,5),(1,15),(1,11),(1,9),
-(2,12),(2,2),(2,10);
-
+(1,5),(1,9),(1,11),(1,15),
+(2,2),(2,10),(2,12),
+(6,1),(6,2),(6,5),
+(7,3),(7,7),(7,11),
+(8,6),(8,10),(8,12),
+(9,5),(9,11),
+(10,2),(10,10),(10,12),
+(11,2),(11,3),(11,13),
+(12,2),(12,8),(12,10),
+(13,1),(13,4),(13,14),
+(14,5),(14,7),(14,15),
+(15,1),(15,4),(15,9);
 
 CREATE TABLE events_winners (
     ew_event_id INT NOT NULL,
@@ -148,4 +166,6 @@ CREATE TABLE events_winners (
     PRIMARY KEY (ew_event_id, ew_user_id)
 ) ENGINE=InnoDB;
 INSERT INTO events_winners VALUES
-(2,12);
+(2,12),
+(10,10),
+(11,13);
