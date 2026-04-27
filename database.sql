@@ -63,7 +63,8 @@ INSERT INTO sports (sport_name) VALUES
 ('Tennis'),
 ('Volleyball'),
 ('Yoga'),
-('Pilates');
+('Pilates'),
+('Frisbee');
 
 CREATE TABLE levels (
     level_id INT NOT NULL AUTO_INCREMENT,
