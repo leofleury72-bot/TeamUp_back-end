@@ -1398,9 +1398,21 @@ app.get("/bdd/events", (req, res) => {
 		}
 		if (req.query.user_joining !== undefined){
 			if (conditions === "") {
-				conditions += ` WHERE u.user_username = ?`;
+				conditions += ` WHERE EXISTS (
+            SELECT 1 
+            FROM events_user eu2
+            JOIN users u2 ON u2.user_id = eu2.eu_user_id
+            WHERE eu2.eu_event_id = e.event_id
+            AND u2.user_username = ?
+        )`;
 			} else {
-				conditions += ` AND u.user_username = ?`;
+				conditions += ` AND EXISTS (
+            SELECT 1 
+            FROM events_user eu2
+            JOIN users u2 ON u2.user_id = eu2.eu_user_id
+            WHERE eu2.eu_event_id = e.event_id
+            AND u2.user_username = ?
+        )`;
 			}
 			filters.push(req.query.user_joining);
 		}
