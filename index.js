@@ -2,13 +2,13 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const express = require("express");
-const mysql = require("mysql2")
+const mysql = require("mysql2");
 const cors = require("cors");
 const port = process.env.APP_PORT || 3310;
 const app = express();
 app.use((req, res, next) => {
-  console.log("REQUEST:", req.method, req.url);
-  next();
+	console.log("REQUEST:", req.method, req.url);
+	next();
 });
 
 const sports = [
@@ -1178,8 +1178,7 @@ const users = [
 
 app.use(cors());
 
-app.get("/", (req, res) => {
-});
+app.get("/", (req, res) => {});
 
 app.get("/users", (req, res) => {
 	res.json(users);
@@ -1191,7 +1190,7 @@ app.get("/events", (req, res) => {
 
 app.get("/sports", (req, res) => {
 	res.json(sports);
-})
+});
 
 /* -------------------- Connection --------------------- */
 
@@ -1200,14 +1199,14 @@ const connection = mysql.createConnection({
 	user: process.env.DB_USER,
 	password: process.env.DB_PASSWORD,
 	database: process.env.DB_NAME,
-})
+});
 
 connection.connect((err) => {
-	if(err) {
-		console.error("Erreur de connection : "+ err.stack)
+	if (err) {
+		console.error("Erreur de connection : " + err.stack);
 		return;
 	}
-	console.log("Connexion reussie a la bdd !")
+	console.log("Connexion reussie a la bdd !");
 });
 
 // ------------------------- Base de données ------------------------------- //
@@ -1228,94 +1227,98 @@ app.get("/bdd/users", (req, res) => {
 		FROM users 
 		JOIN users_sports ON users_sports.us_user_id = users.user_id 
 		JOIN sports ON users_sports.us_sport_id = sports.sport_id 
-		JOIN levels ON users_sports.us_level_id = levels.level_id`
+		JOIN levels ON users_sports.us_level_id = levels.level_id`;
 
-	console.log("req.query:", req.query, "| keys:", Object.keys(req.query), "| length:", Object.keys(req.query).length);
+	console.log(
+		"req.query:",
+		req.query,
+		"| keys:",
+		Object.keys(req.query),
+		"| length:",
+		Object.keys(req.query).length,
+	);
 
 	let filter = [];
-	let conditions = ""
+	let conditions = "";
 
 	// conditions -> username or id, sport (and level), location
 	if (!req.query || Object.keys(req.query).length > 0) {
-    	console.log("GET Request Called with filters for /bdd/users");
-		
-		if(req.query.username !== undefined){
+		console.log("GET Request Called with filters for /bdd/users");
+
+		if (req.query.username !== undefined) {
 			conditions += ` WHERE users.user_username = ?`;
 			filter.push(req.query.username);
-		}
-		else if(req.query.id !== undefined){
+		} else if (req.query.id !== undefined) {
 			conditions += ` WHERE users.user_id = ?`;
 			filter.push(req.query.id);
 		}
 
-		if (req.query.sport !== undefined){
-			if(conditions === ""){
+		if (req.query.sport !== undefined) {
+			if (conditions === "") {
 				conditions += ` WHERE sports.sport_name = ?`;
 			} else {
 				conditions += ` AND sports.sport_name = ?`;
 			}
 			filter.push(req.query.sport);
 
-			if (req.query.level !== undefined){
+			if (req.query.level !== undefined) {
 				conditions += ` AND levels.level_name = ?`;
 				filter.push(req.query.level);
 			}
 		}
 
-		if(req.query.location !== undefined){
-			if(conditions === ""){
+		if (req.query.location !== undefined) {
+			if (conditions === "") {
 				conditions += ` WHERE users.user_location = ?`;
 			} else {
 				conditions += ` AND users.user_location = ?`;
 			}
-			filter.push(req.query.location)
+			filter.push(req.query.location);
 		}
 
 		request += conditions;
-		
 	} else {
 		console.log("GET Request Called without filters, just show all users base");
 	}
 
-
 	connection.query(request, filter, (err, rows) => {
-			if (err) throw err
+		if (err) throw err;
 
-			const usersMap = [];
+		const usersMap = [];
 
-			rows.forEach(row => {
-				if (!usersMap[row.user_id]) {
-					usersMap[row.user_id]={
-						id: row.user_id,
-						username: row.user_username,
-						name: row.user_name,
-						age: row.user_age,
-						location: row.user_location,
-						bio: row.user_bio,
-						url_image: row.user_url_image,
-						sports: [],
-						stats: {
-							match_played: row.user_match_played,
-							match_won: row.user_match_won,
-							winstreak: row.user_winstreak,
-							mvp_count: row.user_mvp_count,
-						}
-					};
-				}
+		rows.forEach((row) => {
+			if (!usersMap[row.user_id]) {
+				usersMap[row.user_id] = {
+					id: row.user_id,
+					username: row.user_username,
+					name: row.user_name,
+					age: row.user_age,
+					location: row.user_location,
+					bio: row.user_bio,
+					url_image: row.user_url_image,
+					sports: [],
+					stats: {
+						match_played: row.user_match_played,
+						match_won: row.user_match_won,
+						winstreak: row.user_winstreak,
+						mvp_count: row.user_mvp_count,
+					},
+				};
+			}
 
-				usersMap[row.user_id].sports.push({
-					name: row.sport_name,
-					level: row.level_name,
-					level_comp: row.us_level_comp,
-					frequecy: row.us_frequency,
-					match_played: row.us_match_played,
-					match_won: row.us_match_won,
-					winstreak: row.us_winstreak,
-					mvp_count: row.us_mvp_count
-				})
+			usersMap[row.user_id].sports.push({
+				name: row.sport_name,
+				level: row.level_name,
+				level_comp: row.us_level_comp,
+				frequecy: row.us_frequency,
+				match_played: row.us_match_played,
+				match_won: row.us_match_won,
+				winstreak: row.us_winstreak,
+				mvp_count: row.us_mvp_count,
 			});
+		});
 
-		res.json(Object.values(usersMap))
+		res.json(Object.values(usersMap));
 	});
 });
 
@@ -1346,16 +1349,23 @@ app.get("/bdd/events", (req, res) => {
         LEFT JOIN events_winners ew ON ew.ew_event_id = e.event_id
         LEFT JOIN users w ON w.user_id = ew.ew_user_id`;
 
-	console.log("req.query:", req.query, "| keys:", Object.keys(req.query), "| length:", Object.keys(req.query).length);
+	console.log(
+		"req.query:",
+		req.query,
+		"| keys:",
+		Object.keys(req.query),
+		"| length:",
+		Object.keys(req.query).length,
+	);
 
 	let conditions = "";
 	let filters = [];
 
 	// id, host username, is comp, location, user joining, by sport (level/ comp level), is done, mvp, winner
 	if (!req.query || Object.keys(req.query).length > 0) {
-    	console.log("GET Request Called with filters for /bdd/events");
+		console.log("GET Request Called with filters for /bdd/events");
 
-		if (req.query.id !== undefined){
+		if (req.query.id !== undefined) {
 			if (conditions === "") {
 				conditions += ` WHERE e.event_id = ?`;
 			} else {
@@ -1363,7 +1373,7 @@ app.get("/bdd/events", (req, res) => {
 			}
 			filters.push(req.query.id);
 		}
-		if (req.query.host !== undefined){
+		if (req.query.host !== undefined) {
 			if (conditions === "") {
 				conditions += ` WHERE h.user_username = ?`;
 			} else {
@@ -1371,7 +1381,7 @@ app.get("/bdd/events", (req, res) => {
 			}
 			filters.push(req.query.host);
 		}
-		if (req.query.isComp !== undefined){
+		if (req.query.isComp !== undefined) {
 			if (conditions === "") {
 				conditions += ` WHERE e.event_is_comp = ?`;
 			} else {
@@ -1388,7 +1398,7 @@ app.get("/bdd/events", (req, res) => {
 				filters.push(req.query.level);
 			}
 		}
-		if (req.query.location !== undefined){
+		if (req.query.location !== undefined) {
 			if (conditions === "") {
 				conditions += ` WHERE e.event_location = ?`;
 			} else {
@@ -1396,7 +1406,7 @@ app.get("/bdd/events", (req, res) => {
 			}
 			filters.push(req.query.location);
 		}
-		if (req.query.user_joining !== undefined){
+		if (req.query.user_joining !== undefined) {
 			if (conditions === "") {
 				conditions += ` WHERE u.user_username = ?`;
 			} else {
@@ -1404,7 +1414,7 @@ app.get("/bdd/events", (req, res) => {
 			}
 			filters.push(req.query.user_joining);
 		}
-		if (req.query.sport !== undefined){
+		if (req.query.sport !== undefined) {
 			if (conditions === "") {
 				conditions += ` WHERE s.sport_name = ?`;
 			} else {
@@ -1412,7 +1422,7 @@ app.get("/bdd/events", (req, res) => {
 			}
 			filters.push(req.query.sport);
 		}
-		if (req.query.isDone !== undefined){
+		if (req.query.isDone !== undefined) {
 			if (conditions === "") {
 				conditions += ` WHERE e.event_is_done = ?`;
 			} else {
@@ -1420,7 +1430,7 @@ app.get("/bdd/events", (req, res) => {
 			}
 			filters.push(req.query.isDone ? 1 : 0);
 		}
-		if (req.query.mvp !== undefined){
+		if (req.query.mvp !== undefined) {
 			if (conditions === "") {
 				conditions += ` WHERE m.user_username = ?`;
 			} else {
@@ -1428,7 +1438,7 @@ app.get("/bdd/events", (req, res) => {
 			}
 			filters.push(req.query.mvp);
 		}
-		if (req.query.winner !== undefined){
+		if (req.query.winner !== undefined) {
 			if (conditions === "") {
 				conditions += ` WHERE w.user_username = ?`;
 			} else {
@@ -1436,7 +1446,7 @@ app.get("/bdd/events", (req, res) => {
 			}
 			filters.push(req.query.winner);
 		}
-		if (req.query.nothost !== undefined){
+		if (req.query.nothost !== undefined) {
 			if (conditions === "") {
 				conditions += ` WHERE h.user_username != ?`;
 			} else {
@@ -1447,11 +1457,13 @@ app.get("/bdd/events", (req, res) => {
 
 		request += conditions;
 	} else {
-		console.log("GET Request Called without filters, just show all events base");
+		console.log(
+			"GET Request Called without filters, just show all events base",
+		);
 	}
 
 	connection.query(request, filters, (err, rows) => {
-		if(err) throw err;
+		if (err) throw err;
 
 		const eventsMap = [];
 
@@ -1461,7 +1473,7 @@ app.get("/bdd/events", (req, res) => {
 					id: row.event_id,
 					name: row.event_name,
 					host: row.host_username,
-					is_comp : row.event_is_comp? true : false,
+					is_comp: row.event_is_comp ? true : false,
 					location: row.event_location,
 					description: row.event_description,
 					date: row.event_date,
@@ -1471,14 +1483,19 @@ app.get("/bdd/events", (req, res) => {
 						name: row.sport_name,
 						level: row.event_is_comp ? row.event_rating : row.level_name,
 					},
-					is_done: row.event_is_done? true:false,
-					mvp: row.event_is_done? row.mvp_username:false,
-					winners : [],
+					is_done: row.event_is_done ? true : false,
+					mvp: row.event_is_done ? row.mvp_username : false,
+					winners: [],
+				};
 			}
-		}
 
-		eventsMap[row.event_id].user_joining.push(row.participant_username);
-		if (row.event_is_done && eventsMap[row.event_id].winners[0]!= row.winner_username) {eventsMap[row.event_id].winners.push(row.winner_username)}
+			eventsMap[row.event_id].user_joining.push(row.participant_username);
+			if (
+				row.event_is_done &&
+				eventsMap[row.event_id].winners[0] != row.winner_username
+			) {
+				eventsMap[row.event_id].winners.push(row.winner_username);
+			}
 		});
 
 		res.json(Object.values(eventsMap));
@@ -1488,21 +1505,20 @@ app.get("/bdd/events", (req, res) => {
 // -> Show sports
 app.get("/bdd/sports", (req, res) => {
 	connection.query(`SELECT * FROM sports`, (err, rows) => {
-		if (err) throw err
+		if (err) throw err;
 
-		res.json(Object.values(rows))
-	})
-})
+		res.json(Object.values(rows));
+	});
+});
 
 // -> Show levels
 app.get("/bdd/levels", (req, res) => {
 	connection.query(`SELECT * FROM levels`, (err, rows) => {
-		if (err) throw err
+		if (err) throw err;
 
-		res.json(Object.values(rows))
-	})
-})
-
+		res.json(Object.values(rows));
+	});
+});
 
 // ----- POST fonction -----
 app.use(express.json());
@@ -1516,11 +1532,15 @@ app.post("/bdd/add/sport_user", (req, res) => {
 	const level = req.body.level_id;
 	const frenquecy = req.body.frequency;
 
-	connection.query("INSERT INTO `users_sports`(`us_user_id`, `us_sport_id`, `us_level_id`, `us_frequency`) VALUES (?, ?, ?, ?)", [user, sport, level, frenquecy], (err, result) => {
-		if(err) throw err
+	connection.query(
+		"INSERT INTO `users_sports`(`us_user_id`, `us_sport_id`, `us_level_id`, `us_frequency`) VALUES (?, ?, ?, ?)",
+		[user, sport, level, frenquecy],
+		(err, result) => {
+			if (err) throw err;
 
-		res.send("Sport Added !");
-	});
+			res.send("Sport Added !");
+		},
+	);
 });
 
 app.post("/bdd/add/events", (req, res) => {
@@ -1536,7 +1556,8 @@ app.post("/bdd/add/events", (req, res) => {
 	const level = req.body.level;
 	const max_people = req.body.max_people;
 
-	connection.query(`INSERT INTO events (
+	connection.query(
+		`INSERT INTO events (
 	event_host_id, 
 	event_name, 
 	event_date, 
@@ -1544,17 +1565,28 @@ app.post("/bdd/add/events", (req, res) => {
 	event_location, 
 	event_is_comp, 
 	event_sport_id,
-	${is_comp? "event_rating," : "event_level_id,"}
+	${is_comp ? "event_rating," : "event_level_id,"}
 	event_max_people) 
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`, 
-	[host, name, date, description, location, is_comp, sport_id, level, max_people],
-	(err, result) => {
-		if (err) throw err;
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+		[
+			host,
+			name,
+			date,
+			description,
+			location,
+			is_comp,
+			sport_id,
+			level,
+			max_people,
+		],
+		(err, result) => {
+			if (err) throw err;
 
-		console.log(result)
-		res.send("Event Added !")
-	});
-})
+			console.log(result);
+			res.send("Event Added !");
+		},
+	);
+});
 
 app.post("/bdd/add/event_user", (req, res) => {
 	console.log("POST Request Called for /bdd/add/event_user");
@@ -1562,13 +1594,16 @@ app.post("/bdd/add/event_user", (req, res) => {
 	const event_id = req.body.event_id;
 	const user_id = req.body.user_id;
 
-	connection.query(`INSERT INTO events_user VALUES (?, ?)`, 
-		[event_id, user_id], (err, result) => {
-		if(err) throw err
+	connection.query(
+		`INSERT INTO events_user VALUES (?, ?)`,
+		[event_id, user_id],
+		(err, result) => {
+			if (err) throw err;
 
-		res.send("User added to the events !");
-	});
-})
+			res.send("User added to the events !");
+		},
+	);
+});
 
 /* --------------------------------------------------- */
 
