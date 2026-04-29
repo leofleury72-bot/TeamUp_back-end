@@ -1335,7 +1335,7 @@ app.get("/bdd/events", (req, res) => {
 		e.event_is_done,
 		e.event_rating, 
 		h.user_username AS host_username, 
-		s.sport_name, l.level_name, 
+		s.sport_name, s.sport_image, l.level_name, 
 		u.user_username AS participant_username,
         m.user_username AS mvp_username,
         w.user_username AS winner_username
@@ -1491,9 +1491,10 @@ app.get("/bdd/events", (req, res) => {
 					date: row.event_date,
 					max_people: row.event_max_people,
 					user_joining: [],
-					sports: {
+					sport: {
 						name: row.sport_name,
 						level: row.event_is_comp ? row.event_rating : row.level_name,
+						image: row.sport_image,
 					},
 					is_done: row.event_is_done ? true : false,
 					mvp: row.event_is_done ? row.mvp_username : false,

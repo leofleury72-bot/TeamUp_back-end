@@ -1,3 +1,5 @@
+/* DROP DATABASE teamup */
+
 CREATE DATABASE teamup;
 USE teamup;
 
@@ -36,35 +38,36 @@ INSERT INTO users VALUES
 CREATE TABLE sports (
     sport_id INT NOT NULL AUTO_INCREMENT,
     sport_name VARCHAR(255) NOT NULL,
+    sport_image VARCHAR(255) NOT NULL,
     PRIMARY KEY (sport_id)
 ) ENGINE=InnoDB;
 
-INSERT INTO sports (sport_name) VALUES
-('Archery'),
-('Badminton'),
-('Basketball'),
-('Boxing'),
-('Climbing'),
-('Cycling'),
-('Dance'),
-('Football'),
-('Gym'),
-('Handball'),
-('Judo'),
-('Karate'),
-('Kayaking'),
-('Paddleboarding'),
-('Pétanque'),
-('Rugby'),
-('Running'),
-('Skating'),
-('Surfing'),
-('Swimming'),
-('Tennis'),
-('Volleyball'),
-('Yoga'),
-('Pilates'),
-('Frisbee');
+INSERT INTO sports (sport_name, sport_image) VALUES
+('Archery', "https://images.unsplash.com/photo-1510925758641-869d353cecc7?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+('Badminton',"https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800&q=80"),
+('Basketball', "https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800&q=80"),
+('Boxing', "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?w=800&q=80"),
+('Climbing', "https://images.unsplash.com/photo-1522163182402-834f871fd851?w=800&q=80"),
+('Cycling', "https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=800&q=80"),
+('Dance', "https://plus.unsplash.com/premium_photo-1681492514899-089902cd417a?q=80&w=682&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+('Football', "https://images.unsplash.com/photo-1575361204480-aadea25e6e68?w=800&q=80"),
+('Gym', "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80"),
+('Handball', "https://st.depositphotos.com/1170398/4489/i/450/depositphotos_44898315-handball-team-female-jump-shot.jpg"),
+('Judo', "https://images.unsplash.com/photo-1676220672943-5100a727ba36?q=80&w=627&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+('Karate',"https://images.unsplash.com/photo-1603210185246-b1662978ea37?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+('Kayaking',"https://images.unsplash.com/photo-1587987687216-aadda9308c9c?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+('Paddleboarding',"https://images.unsplash.com/photo-1635110982680-2df6c0f397f2?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+('Pétanque', "https://images.unsplash.com/photo-1565078682561-700bdf3cdfcf?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGV0YW5xdWV8ZW58MHx8MHx8fDA%3D"),
+('Rugby', "https://images.unsplash.com/photo-1635356164637-92da6fb2072d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+('Running', "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=800&q=80"),
+('Skating', "https://images.unsplash.com/photo-1705529135167-b55f3f205251?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+('Surfing',"https://images.unsplash.com/photo-1705529135167-b55f3f205251?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+('Swimming', "https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=800&q=80"),
+('Tennis', "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=800&q=80"),
+('Volleyball', "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=800&q=80"),
+('Yoga', "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80"),
+('Pilates', "https://images.unsplash.com/photo-1747239069226-55382c570116?q=80&w=711&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"),
+('Frisbee', "https://images.unsplash.com/photo-1584846884362-e1ea3d18e53f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8ZnJpc2JlZSUyMHVsdGltYXRlfGVufDB8fDB8fHww");
 
 CREATE TABLE levels (
     level_id INT NOT NULL AUTO_INCREMENT,
