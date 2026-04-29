@@ -1,5 +1,5 @@
-/* DROP DATABASE teamup */
 
+drop database teamup;
 CREATE DATABASE teamup;
 USE teamup;
 
@@ -156,7 +156,37 @@ INSERT INTO events (
 (12,8,'Tournoi Boxe amateur','2026-06-10 19:00:00','Matchs amateurs','Nantes Gym Hall',1,0,4,3,8,8,NULL),
 (13,14,'Mini coupe football','2026-06-12 16:00:00','Tournoi 5v5','Reims Stade',1,0,8,2,14,14,NULL),
 (14,7,'Yoga flow avancé','2026-06-08 18:30:00','Flow dynamique','Toulouse Jardin',0,0,23,3,15,15,NULL),
-(15,4,'Tennis détente','2026-06-06 17:00:00','Matchs amicaux','Bordeaux Club',0,0,21,2,8,8,NULL);
+(15,4,'Tennis détente','2026-06-06 17:00:00','Matchs amicaux','Bordeaux Club',0,0,21,2,8,8,NULL),
+(16,1,'Session natation libre','2026-05-18 08:00:00','Entraînement libre en piscine, tous niveaux bienvenus.','Piscine Pontoise, Paris',0,0,20,5,NULL,12,NULL),
+(17,5,'Frisbee au parc','2026-05-19 14:00:00','Ultimate frisbee décontracté en plein air.','Parc de la Tête d"Or, Lyon',0,0,25,1,NULL,16,NULL),
+(18,3,'Match de volley-ball','2026-05-21 17:00:00','Tournoi 3v3 sur sable.','Plage du Prado, Marseille',1,0,22,2,NULL,9,NULL),
+(19,12,'Escalade outdoor','2026-05-23 09:30:00','Sortie falaise pour grimpeurs confirmés.','Gorges du Verdon',0,0,5,3,NULL,7,NULL),
+(20,6,'Randonnée vélo longue distance','2026-05-25 07:00:00','100km à travers la campagne flamande.','Dunkerque - Calais',0,0,6,3,NULL,18,NULL),
+(21,9,'Workshop danse contemporaine','2026-05-27 19:00:00','Atelier dimprovisation et de composition.','Théâtre de la Cité, Strasbourg',0,0,7,2,NULL,14,NULL),
+(22,4,'Tournoi de badminton','2026-05-29 15:00:00','Doubles mixtes, ambiance conviviale.','Gymnase Joliot-Curie, Bordeaux',1,0,2,2,NULL,10,NULL),
+(23,8,'Sparring boxe','2026-05-31 18:30:00','Séances de sparring encadrées par un coach.','Club Punch, Nantes',1,0,4,2,NULL,6,NULL),
+(24,13,'Trail 20km','2026-06-02 06:30:00','Trail nature avec dénivelé, niveau intermédiaire.','Forêt de Cîteaux, Dijon',1,0,17,2,NULL,22,NULL),
+(25,15,'Cours de yoga aérien','2026-06-04 10:00:00','Yoga avec hamac, renforcement et étirements.','Studio Aérea, Angers',0,0,23,1,NULL,8,NULL),
+(26,10,'Compétition handball','2026-06-07 14:00:00','Tournoi 4v4 en salle.','Salle Omnisports, Rennes',1,0,10,3,NULL,16,NULL),
+(27,11,'Pilates avancé','2026-06-09 09:00:00','Séance intensive sur reformer.','Studio Core, Montpellier',0,0,24,3,NULL,6,NULL),
+(28,14,'Football plage','2026-06-11 16:30:00','Match 3v3 sur sable, pieds nus.','Plage de la Baule, Nantes',0,0,8,1,NULL,12,NULL),
+(29,2,'Tournoi de tennis de table','2026-06-13 15:00:00','Championnat interne, tous niveaux.','MJC Croix-Rousse, Lyon',1,0,21,5,NULL,20,NULL),
+(30,7,'Paddle board découverte','2026-06-14 11:00:00','Initiation au stand-up paddle en lac.','Lac de Saint-Ferréol, Toulouse',0,0,14,1,NULL,10,NULL),
+(31,1,'Running nocturne','2026-06-15 21:00:00','Course 8km en ville, lampes frontales requises.','Bords de Seine, Paris',0,0,17,2,NULL,30,NULL),
+(32,5,'Judo enfants & adultes','2026-06-16 17:00:00','Cours collectif judo mixte.','Dojo Zen, Nice',0,0,11,1,NULL,15,NULL),
+(33,3,'Kayak en mer','2026-06-17 09:00:00','Sortie kayak côtière 2h, initiation.','Calanque de Sormiou, Marseille',0,0,13,1,NULL,8,NULL),
+(34,12,'Boulder challenge','2026-06-18 14:00:00','Bloc intensif, résolution de problèmes.','Salle Arkose, Grenoble',1,0,5,4,NULL,12,NULL),
+(35,6,'Cyclosportive urbaine','2026-06-19 08:00:00','Parcours chronométré 50km en ville.','Lille Centre',1,0,6,4,NULL,25,NULL),
+(36,9,'Salsa & bachata','2026-06-20 20:00:00','Soirée danse latine, cours + pratique libre.','La Salsothèque, Strasbourg',0,0,7,1,NULL,40,NULL),
+(37,4,'Match rugby à 7','2026-06-21 15:00:00','Rugby sevens amical sur gazon synthétique.','Stade Chaban-Delmas, Bordeaux',0,0,16,2,NULL,14,NULL),
+(38,13,'Aquajogging','2026-06-22 07:30:00','Running en piscine, cardio et récupération.','Piscine Olympique, Dijon',0,0,20,1,NULL,9,NULL),
+(39,15,'Atelier tir à l''arc','2026-06-23 14:00:00','Initiation tir à l''arc en extérieur.','Parc Balzac, Angers',0,0,1,1,NULL,11,NULL),
+(40,10,'Sparring karaté','2026-06-24 18:00:00','Entraînement kumite, ceintures vertes et plus.','Dojo Bushido, Rennes',1,0,12,3,NULL,10,NULL),
+(41,8,'Surf côte atlantique','2026-06-25 09:00:00','Session surf débutants avec moniteur.','Plage de la Sauzaie, Brétignolles',0,0,19,1,NULL,7,NULL),
+(42,11,'Marche nordique','2026-06-26 08:30:00','Sortie 12km avec bâtons en garrigue.','Pic Saint-Loup, Montpellier',0,0,17,1,NULL,20,NULL),
+(43,14,'Patinage artistique','2026-06-27 16:00:00','Séance libre + figures de base encadrées.','Patinoire Reims Glaces',0,0,18,1,NULL,18,NULL),
+(44,2,'Pétanque nocturne','2026-06-28 21:00:00','Tournoi de pétanque aux lampions.','Boulodrome du Vieux-Lyon',1,0,15,5,NULL,24,NULL),
+(45,7,'Yoga & méditation','2026-06-29 07:00:00','Séance sunrise yoga suivie de 20min de méditation.','Bord de la Garonne, Toulouse',0,0,23,1,NULL,13,NULL);
 
 CREATE TABLE events_user (
     eu_event_id INT NOT NULL,
@@ -175,7 +205,37 @@ INSERT INTO events_user VALUES
 (12,2),(12,8),(12,10),
 (13,1),(13,4),(13,14),
 (14,5),(14,7),(14,15),
-(15,1),(15,4),(15,9);
+(15,1),(15,4),(15,9),
+(16,4),(16,7),(16,11),(16,13),
+(17,1),(17,3),(17,9),(17,14),(17,15),
+(18,6),(18,8),(18,12),
+(19,2),(19,10),
+(20,2),(20,13),(20,3),(20,9),
+(21,5),(21,15),(21,7),
+(22,1),(22,6),(22,13),
+(23,2),(23,10),
+(24,3),(24,6),(24,10),(24,14),
+(25,5),(25,11),
+(26,3),(26,8),(26,9),(26,14),
+(27,5),(27,7),
+(28,1),(28,3),(28,6),
+(29,4),(29,7),(29,12),(29,15),
+(30,5),(30,9),(30,11),
+(31,3),(31,6),(31,13),(31,14),
+(32,8),(32,10),(32,12),
+(33,4),(33,7),
+(34,2),(34,6),(34,10),
+(35,2),(35,4),(35,13),
+(36,1),(36,5),(36,9),(36,15),
+(37,3),(37,8),(37,14),
+(38,1),(38,5),(38,11),
+(39,3),(39,6),(39,9),
+(40,2),(40,8),(40,12),
+(41,3),(41,4),(41,15),
+(42,1),(42,7),(42,13),
+(43,5),(43,9),(43,12),
+(44,1),(44,4),(44,7),(44,11),
+(45,5),(45,11),(45,15);
 
 CREATE TABLE events_winners (
     ew_event_id INT NOT NULL,
