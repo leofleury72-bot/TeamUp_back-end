@@ -185,7 +185,7 @@ INSERT INTO events (
 (42,11,"Marche nordique","2026-06-26 08:30:00","Sortie 12km avec bâtons en garrigue.","Pic Saint-Loup, Montpellier",0,0,17,1,NULL,20,NULL),
 (43,14,"Patinage artistique","2026-06-27 16:00:00","Séance libre + figures de base encadrées.","Patinoire Reims Glaces",0,0,18,1,NULL,18,NULL),
 (44,2,"Pétanque nocturne","2026-06-28 21:00:00","Tournoi de pétanque aux lampions.","Boulodrome du Vieux-Lyon",1,0,15,5,NULL,24,NULL),
-(45,7,"Yoga & méditation","2026-06-29 07:00:00","Séance sunrise yoga suivie de 20min de méditation.","Bord de la Garonne, Toulouse",0,0,23,1,NULL,13,NULL);
+(45,7,"Yoga & méditation","2026-06-29 07:00:00","Séance sunrise yoga suivie de 20min de méditation.","Bord de la Garonne, Toulouse",0,0,23,1,NULL,13,NULL),
 (46,2,"Basket nocturne","2026-07-01 21:00:00","Match street basket sous les lumières.","Paris Quai de Seine",0,0,3,2,NULL,12,NULL),
 (47,7,"Yoga sunrise","2026-07-02 06:30:00","Yoga au lever du soleil.","Nice Plage",0,0,23,1,NULL,18,NULL),
 (48,14,"Foot détente","2026-07-03 18:30:00","Petit match entre amis.","Toulouse Stadium",0,0,8,1,NULL,10,NULL),
@@ -200,7 +200,7 @@ INSERT INTO events (
 (57,3,"Running 10km","2026-07-12 07:30:00","Sortie running en groupe.","Marseille Parc",0,0,17,2,NULL,16,NULL),
 (58,11,"Yoga flow","2026-07-13 08:30:00","Flow dynamique.","Montpellier Jardin",0,0,23,2,NULL,15,NULL),
 (59,13,"Trail découverte","2026-07-14 07:00:00","Trail 12km nature.","Dijon Forêt",0,0,17,2,NULL,20,NULL),
-(60,15,"Danse contemporaine","2026-07-15 19:00:00","Exploration du mouvement.","Angers Salle",0,0,7,2,NULL,18,NULL);
+(60,15,"Danse contemporaine","2026-07-15 19:00:00","Exploration du mouvement.","Angers Salle",0,0,7,2,NULL,18,NULL),
 (61,2,"Basket 3v3 tournoi","2026-07-16 17:00:00","Tournoi rapide 3v3.","Lyon Centre",1,0,3,2,NULL,12,NULL),
 (62,7,"Yoga sunset flow","2026-07-17 20:00:00","Flow au coucher du soleil.","Nice Plage",0,0,23,2,NULL,20,NULL),
 (63,14,"Foot city match","2026-07-18 18:00:00","Match urbain 5v5.","Paris 15e",0,0,8,1,NULL,10,NULL),
@@ -268,7 +268,7 @@ INSERT INTO events_user VALUES
 (42,1),(42,7),(42,13),
 (43,5),(43,9),(43,12),
 (44,1),(44,4),(44,7),(44,11),
-(45,5),(45,11),(45,15);
+(45,5),(45,11),(45,15),
 (46,2),(46,3),(46,10),
 (47,5),(47,7),(47,11),
 (48,1),(48,4),(48,14),
