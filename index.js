@@ -1346,8 +1346,6 @@ app.get("/bdd/events", (req, res) => {
         LEFT JOIN events_winners ew ON ew.ew_event_id = e.event_id
         LEFT JOIN users w ON w.user_id = ew.ew_user_id`;
 
-	console.log("req.query:", req.query, "| keys:", Object.keys(req.query), "| length:", Object.keys(req.query).length);
-
 	let conditions = "";
 	let filters = [];
 
@@ -1370,6 +1368,18 @@ app.get("/bdd/events", (req, res) => {
 				conditions += ` AND h.user_username = ?`;
 			}
 			filters.push(req.query.host);
+
+			if (req.query.user_joining !== undefined) {
+				conditions += ` OR EXISTS (
+					SELECT 1 
+					FROM events_user eu2
+					JOIN users u2 ON u2.user_id = eu2.eu_user_id
+					WHERE eu2.eu_event_id = e.event_id
+					AND u2.user_username = ?
+				)`
+
+				filters.push(req.query.user_joining)
+			}
 		}
 		if (req.query.isComp !== undefined){
 			if (conditions === "") {
@@ -1377,16 +1387,28 @@ app.get("/bdd/events", (req, res) => {
 			} else {
 				conditions += ` AND e.event_is_comp = ?`;
 			}
-			filters.push(req.query.isComp ? 1 : 0);
-
-			if (req.query.sport !== undefined && req.query.level !== undefined) {
-				if (req.query.isComp) {
-					conditions += ` AND e.event_sport_level_comp = ?`;
+			
+			if (req.query.isComp === 'true') {
+				filters.push(1);
+			} else {
+				filters.push(0);
+			}
+		}
+		if (req.query.level !== undefined) {
+			if (req.query.isComp !== undefined && req.query.isComp === 'true') {
+				if (conditions === "") {
+					conditions += ` WHERE e.event_rating = ?`;
+				} else {
+					conditions += ` AND e.event_rating = ?`;
+				}
+			} else {
+				if (conditions === "") {
+					conditions += ` WHERE l.level_name = ?`;
 				} else {
 					conditions += ` AND l.level_name = ?`;
 				}
-				filters.push(req.query.level);
 			}
+			filters.push(req.query.level);
 		}
 		if (req.query.location !== undefined){
 			if (conditions === "") {
@@ -1396,7 +1418,7 @@ app.get("/bdd/events", (req, res) => {
 			}
 			filters.push(req.query.location);
 		}
-		if (req.query.user_joining !== undefined){
+		if (req.query.user_joining !== undefined && !(req.query.host !== undefined) ){
 			if (conditions === "") {
 				conditions += ` WHERE EXISTS (
             SELECT 1 
@@ -1455,6 +1477,26 @@ app.get("/bdd/events", (req, res) => {
 				conditions += ` AND h.user_username != ?`;
 			}
 			filters.push(req.query.nothost);
+		}
+		if (req.query.notuser_joining !== undefined){
+			if (conditions === "") {
+				conditions += ` WHERE NOT EXISTS (
+				SELECT 1 
+				FROM events_user eu2
+				JOIN users u2 ON u2.user_id = eu2.eu_user_id
+				WHERE eu2.eu_event_id = e.event_id
+				AND u2.user_username = ?
+			)`;
+			} else {
+				conditions += ` AND NOT EXISTS (
+				SELECT 1 
+				FROM events_user eu2
+				JOIN users u2 ON u2.user_id = eu2.eu_user_id
+				WHERE eu2.eu_event_id = e.event_id
+				AND u2.user_username = ?
+			)`;
+			}
+			filters.push(req.query.notuser_joining);
 		}
 
 		request += conditions;
